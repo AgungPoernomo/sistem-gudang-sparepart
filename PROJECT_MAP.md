@@ -23,19 +23,14 @@ PERGUDANGAN-SPAREPART-SATORIA/
 │   │   │   └── purchase-request
 │   │   │       └── index.html // Halaman utama (Pintu masuk / Login System)
 │   │   ├── login
-│   │   │   └── index.html // Halaman utama (Pintu masuk / Login System)
 │   │   ├── globals.css
 │   │   └── layout.html
 │   ├── assets // Aset statis seperti gambar, ikon, dan font
 │   ├── backend
 │   └── components
-│       └── (dasboard)
+│       └── (dashboard)
 │           ├── dashboard
 │           │   ├── card
-│           │   │   ├── card-critical.html
-│           │   │   ├── card-inbound.html
-│           │   │   ├── card-master.html
-│           │   │   └── card-outbound.html
 │           │   ├── chart
 │           │   └── table
 │           ├── database
@@ -62,10 +57,11 @@ PERGUDANGAN-SPAREPART-SATORIA/
 │               ├── card
 │               ├── chart
 │               └── table
+├── index.html // Halaman utama (Pintu masuk / Login System)
 ├── package.json // Konfigurasi project Node.js dan dependensi
 ├── PROJECT_MAP.md // Dokumentasi struktur project (Auto-generated)
 └── tailwind.config.js
 
 ```
 
-*Terakhir diperbarui pada: 25/4/2026, 09.44.45 WIB*
+*Terakhir diperbarui pada: 27/4/2026, 12.40.17 WIB*
