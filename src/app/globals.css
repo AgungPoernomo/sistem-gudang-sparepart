@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styling Satoria */
+body {
+  @apply bg-satoria-light text-slate-800 antialiased;
+}

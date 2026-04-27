@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outbound | Sistem Pergudangan Satoria</title>
+    <link href="../../../../public/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        #sidebar { transition: transform 0.3s ease-in-out; } 
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        thead th { 
+            position: sticky; 
+            top: 0; 
+            z-index: 10; 
+            background-color: #f8fafc; 
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex min-h-screen overflow-x-hidden">
+
+    <script>
+        if (!localStorage.getItem('satoria_user_name')) {
+            window.location.href = "../../login/index.html"; 
+        }
+    </script>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-screen shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0 sticky top-0">
+        
+        <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
+            <img src="../../../../public/logo-satoria.png" alt="Logo Satoria" class="h-9 w-auto mb-1 shrink-0">
+            <span class="text-xl font-extrabold text-slate-800 tracking-tight whitespace-nowrap">
+                Gudang <span class="text-blue-600"> Sparepart </span>
+            </span>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
+            <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Menu Operasional</p>
+            <a href="../dashboard/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                Dashboard Utama
+            </a>
+            <a href="../database/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                Database Sparepart
+            </a>
+            <a href="../inbound/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
+                Barang Masuk (Inbound)
+            </a>
+            
+            <a href="../outbound/index.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl font-semibold shadow-sm border border-blue-100/50">
+                <svg class="w-5 h-5 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
+                Barang Keluar (Used)
+            </a>
+            
+            <a href="../opname/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                Stock Opname
+            </a>
+
+            <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 mt-6">Administrasi</p>
+            <a href="#" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Purchase Request
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Pengaturan Sistem
+            </a>
+        </div>
+
+        <div class="p-5 border-t border-slate-100 shrink-0">
+            <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 hover:shadow-sm rounded-xl font-bold transition-all group">
+                <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Keluar Sistem
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col w-full min-w-0 min-h-screen relative">
+        
+        <div id="mainLoading" class="fixed inset-0 bg-white/70 backdrop-blur-sm z-50 flex-col items-center justify-center hidden">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-3"></div>
+            <p id="loadingText" class="text-sm font-semibold text-slate-700">Memuat Data...</p>
+        </div>
+
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-10 z-30 shadow-sm shrink-0 sticky top-0 w-full">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="lg:hidden text-slate-500 hover:text-blue-600 focus:outline-none bg-slate-100 p-2.5 rounded-lg transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <h1 class="text-lg md:text-xl font-bold text-slate-800 hidden sm:block">Pencatatan Barang Keluar (Outbound)</h1>
+            </div>
+
+            <div class="flex items-center ml-auto">
+                <div class="text-right mr-3 hidden sm:block">
+                    <p id="displayUserName" class="text-sm font-bold text-slate-800 leading-none mb-1">Memuat...</p>
+                    <p id="displayUserRole" class="text-[10px] font-bold tracking-wider text-blue-600 bg-blue-100 inline-block px-2 py-0.5 rounded-md uppercase">Memuat...</p>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold text-lg shadow-md ring-2 ring-white">
+                    <span id="userInitial">U</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-4 lg:p-6 xl:p-8 flex flex-col lg:flex-row items-start gap-6 w-full">
+            
+            <div class="w-full lg:w-[350px] xl:w-[420px] shrink-0 lg:sticky lg:top-28">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 xl:p-6">
+                    <h2 class="text-base xl:text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-5 flex items-center">
+                        <span class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mr-3 text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
+                        </span>
+                        Catat Barang Keluar
+                    </h2>
+
+                    <form id="outboundForm" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Plant/Line</label>
+                                <select id="plant" required onchange="triggerFetchStock()" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                                    <option value="LINE_1">LINE 1</option>
+                                    <option value="LINE_2">LINE 2</option>
+                                    <option value="LINE_3">LINE 3</option>
+                                    <option value="LINE_4">LINE 4</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">PIC / Pengambil</label>
+                                <input type="text" id="pic" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm font-medium text-slate-600 focus:border-blue-500 outline-none" placeholder="Nama Teknisi">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Jenis Part</label>
+                                <select id="jenis_part" required onchange="fetchSpecs()" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                                    <option value="">Memuat...</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Spesifikasi</label>
+                                <select id="part_spesifikasi" required onchange="triggerFetchStock()" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                                    <option value="">Pilih...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nomor Rak</label>
+                                <select id="nomor_rak" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                                    <option value="">Memuat...</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Satuan</label>
+                                <select id="satuan" required class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                                    <option value="">Memuat...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 p-3 rounded-xl border border-red-100 mt-2">
+                            <div class="grid grid-cols-3 gap-2 text-center items-center">
+                                <div>
+                                    <p class="text-[9px] font-bold text-slate-600 uppercase mb-1">Last Stock</p>
+                                    <input type="number" id="last_stock" readonly class="w-full bg-transparent text-lg font-bold text-slate-600 text-center outline-none" value="0">
+                                </div>
+                                <div class="border-x border-red-200 px-1">
+                                    <p class="text-[9px] font-bold text-red-600 uppercase mb-1">Part Keluar</p>
+                                    <input type="number" id="part_keluar" required oninput="calculateStock()" class="w-full bg-white border border-red-300 text-lg font-bold text-red-700 text-center rounded-md p-1 outline-none focus:ring-2 focus:ring-red-500" placeholder="0">
+                                </div>
+                                <div>
+                                    <p class="text-[9px] font-bold text-slate-600 uppercase mb-1">Sisa Stock</p>
+                                    <input type="number" id="current_stock" readonly class="w-full bg-transparent text-lg font-bold text-slate-900 text-center outline-none" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Tujuan / Mesin / Catatan</label>
+                            <textarea id="catatan" required rows="2" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500" placeholder="Digunakan untuk mesin apa?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full mt-2 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
+                            Simpan Data Outbound
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="flex-1 w-full min-w-0 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col mb-10 overflow-hidden">
+                
+                <div class="px-4 md:px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-lg">Log Riwayat Outbound</h3>
+                        <p class="text-xs text-slate-500 mt-1">25 Transaksi Pengeluaran Terakhir</p>
+                    </div>
+                    <div class="relative w-full sm:w-64">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <input type="text" id="tableFilter" onkeyup="filterTable()" class="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2" placeholder="Cari data di tabel...">
+                    </div>
+                </div>
+                
+                <div class="overflow-auto w-full max-h-[60vh] lg:max-h-[70vh]">
+                    <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap" id="riwayatTable">
+                        <thead class="text-slate-500 border-b border-slate-200 uppercase text-[10px] tracking-wider font-bold">
+                            <tr>
+                                <th class="px-4 py-3">Tgl Aktivitas</th>
+                                <th class="px-4 py-3">Plant</th>
+                                <th class="px-4 py-3">PIC (Pengambil)</th>
+                                <th class="px-4 py-3">Nomor Rak</th>
+                                <th class="px-4 py-3">Jenis Part</th>
+                                <th class="px-4 py-3">Spesifikasi</th>
+                                <th class="px-4 py-3">Satuan</th>
+                                <th class="px-4 py-3 text-center">Last Stock</th>
+                                <th class="px-4 py-3 text-center">Part Keluar</th>
+                                <th class="px-4 py-3 text-center">Current Stock</th>
+                                <th class="px-4 py-3 text-center">Status</th>
+                                <th class="px-4 py-3">Tujuan/Catatan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody" class="divide-y divide-slate-100">
+                            <tr><td colspan="12" class="px-4 py-8 text-center text-slate-400">Menyinkronkan dengan Database...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // GANTI DENGAN URL WEB APP ANDA YANG BARU
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzceIT51fL8miDRoAAQQZTcGtuiOQ3ZXcx6O3q-QJO1W3Cgg8A5MjDVPCmsC4Yfqqv_/exec";
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const userName = localStorage.getItem('satoria_user_name') || 'Pengguna';
+            document.getElementById('displayUserName').innerText = userName;
+            document.getElementById('displayUserRole').innerText = localStorage.getItem('satoria_user_role') || 'Staff';
+            document.getElementById('userInitial').innerText = userName.charAt(0).toUpperCase();
+            
+            // Berbeda dengan Inbound (Penerima), di Outbound PIC biasanya Teknisi yang mengambil,
+            // Tapi kita biarkan user yang login bisa mengedit namanya jika dia mencatat atas nama orang lain
+            document.getElementById('pic').value = userName;
+            
+            loadInitialData();
+        });
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
+        }
+
+        function logout() {
+            if(confirm("Keluar dari sistem?")) {
+                localStorage.clear();
+                window.location.href = "../../login/index.html"; 
+            }
+        }
+
+        function showLoading(show, text="Memproses...") {
+            const loader = document.getElementById('mainLoading');
+            document.getElementById('loadingText').innerText = text;
+            if(show) { loader.classList.remove('hidden'); loader.classList.add('flex'); } 
+            else { loader.classList.add('hidden'); loader.classList.remove('flex'); }
+        }
+
+        // ======================= API CALLS =======================
+
+        async function loadInitialData() {
+            showLoading(true, "Memuat Data Validasi & Riwayat...");
+            try {
+                // Gunakan action khusus untuk outbound
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST', body: JSON.stringify({ action: 'get_initial_outbound' })
+                });
+                const d = await res.json();
+                if(d.success) {
+                    populateSelect('jenis_part', d.jenis_part, "Pilih Jenis...");
+                    populateSelect('nomor_rak', d.nomor_rak);
+                    populateSelect('satuan', d.satuan);
+
+                    if(d.history && d.history.length > 0) {
+                        renderHistoryTable(d.history);
+                    } else {
+                        document.getElementById('historyBody').innerHTML = `<tr><td colspan="12" class="px-4 py-8 text-center text-slate-400">Belum ada transaksi pengeluaran.</td></tr>`;
+                    }
+                }
+            } catch(e) { console.error("Error", e); }
+            showLoading(false);
+        }
+
+        function populateSelect(id, array, defaultOption = null) {
+            const el = document.getElementById(id);
+            el.innerHTML = defaultOption ? `<option value="">${defaultOption}</option>` : "";
+            array.forEach(item => { el.innerHTML += `<option value="${item}">${item}</option>`; });
+        }
+
+        async function fetchSpecs() {
+            const jenis = document.getElementById('jenis_part').value;
+            const specEl = document.getElementById('part_spesifikasi');
+            specEl.innerHTML = '<option value="">Memuat...</option>';
+            document.getElementById('last_stock').value = 0; 
+            calculateStock();
+
+            if(!jenis) { specEl.innerHTML = '<option value="">Pilih Jenis Dulu</option>'; return; }
+
+            try {
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST', body: JSON.stringify({ action: 'get_specs', jenis_part: jenis })
+                });
+                const d = await res.json();
+                if(d.success) { populateSelect('part_spesifikasi', d.specs, "Pilih Spesifikasi..."); }
+            } catch(e) { console.error(e); }
+        }
+
+        function triggerFetchStock() {
+            const plant = document.getElementById('plant').value;
+            const jenis = document.getElementById('jenis_part').value;
+            const kode = document.getElementById('part_spesifikasi').value;
+            if(plant && jenis && kode) { fetchLastStock(plant, jenis, kode); }
+        }
+
+        async function fetchLastStock(plant, jenis, kode) {
+            showLoading(true, "Mengecek Stok Master...");
+            try {
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST', body: JSON.stringify({ action: 'get_item_detail', sheet_name: plant, jenis_part: jenis, kode_part: kode })
+                });
+                const d = await res.json();
+                if(d.success) {
+                    document.getElementById('last_stock').value = d.last_stock;
+                } else {
+                    document.getElementById('last_stock').value = 0;
+                    alert(d.message);
+                }
+                calculateStock();
+            } catch(e) { console.error(e); }
+            showLoading(false);
+        }
+
+        // LOGIKA PERHITUNGAN OUTBOUND (PENGURANGAN)
+        function calculateStock() {
+            const last = parseFloat(document.getElementById('last_stock').value) || 0;
+            const outbound = parseFloat(document.getElementById('part_keluar').value) || 0;
+            const current = last - outbound;
+            
+            const currentEl = document.getElementById('current_stock');
+            currentEl.value = current;
+
+            // Peringatan visual jika stok minus
+            if (current < 0) {
+                currentEl.classList.add('text-red-600');
+                currentEl.classList.remove('text-blue-900');
+            } else {
+                currentEl.classList.add('text-blue-900');
+                currentEl.classList.remove('text-red-600');
+            }
+        }
+
+        // SUBMIT FORM OUTBOUND
+        document.getElementById('outboundForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const last = parseFloat(document.getElementById('last_stock').value) || 0;
+            const outbound = parseFloat(document.getElementById('part_keluar').value) || 0;
+            
+            // Validasi ketat: Cegah pengeluaran jika stok tidak cukup
+            if (outbound > last) {
+                alert("GAGAL: Jumlah Part Keluar melebihi Stok yang tersedia!");
+                return;
+            }
+
+            const formData = {
+                plant: document.getElementById('plant').value,
+                pic: document.getElementById('pic').value,
+                nomor_rak: document.getElementById('nomor_rak').value,
+                jenis_part: document.getElementById('jenis_part').value,
+                part_spesifikasi: document.getElementById('part_spesifikasi').value,
+                satuan: document.getElementById('satuan').value,
+                last_stock: last,
+                part_keluar: outbound, // Perhatikan ini namanya part_keluar
+                current_stock: document.getElementById('current_stock').value,
+                catatan: document.getElementById('catatan').value
+            };
+
+            showLoading(true, "Menyimpan Outbound & Memotong Stok Master...");
+            try {
+                const res = await fetch(SCRIPT_URL, {
+                    method: 'POST', body: JSON.stringify({ action: 'add_outbound', data: formData })
+                });
+                const result = await res.json();
+
+                if(result.success) {
+                    if(result.history) renderHistoryTable(result.history); 
+                    
+                    document.getElementById('part_keluar').value = "";
+                    document.getElementById('catatan').value = "";
+                    document.getElementById('part_spesifikasi').innerHTML = '<option value="">Pilih Spesifikasi...</option>';
+                    document.getElementById('jenis_part').value = "";
+                    document.getElementById('last_stock').value = "0";
+                    document.getElementById('current_stock').value = "0";
+                    alert("Berhasil: " + result.message);
+                } else { alert("Gagal: " + result.message); }
+            } catch(e) { alert("Error Koneksi."); console.error(e); }
+            showLoading(false);
+        });
+
+        // RENDER TABEL (PENYESUAIAN WARNA OUTBOUND)
+        function renderHistoryTable(dataArray) {
+            const tbody = document.getElementById('historyBody');
+            let html = "";
+            
+            dataArray.forEach(row => {
+                if(String(row[0]).toUpperCase().includes("TGL")) return;
+                
+                let dateStr = row[0];
+                try { 
+                    const d = new Date(row[0]);
+                    if(!isNaN(d)) dateStr = d.toLocaleString('id-ID', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}); 
+                } catch(e){}
+
+                html += `
+                    <tr class="hover:bg-slate-50/80 transition-colors border-b border-slate-100">
+                        <td class="px-4 py-3 text-slate-500">${dateStr}</td>
+                        <td class="px-4 py-3 font-semibold text-slate-700">${row[1]}</td>
+                        <td class="px-4 py-3 text-slate-600">${row[2]}</td>
+                        <td class="px-4 py-3">${row[3]}</td>
+                        <td class="px-4 py-3 text-slate-600">${row[4]}</td>
+                        <td class="px-4 py-3 font-bold text-blue-600">${row[5]}</td>
+                        <td class="px-4 py-3">${row[6]}</td>
+                        <td class="px-4 py-3 text-center text-slate-500">${row[7]}</td>
+                        <td class="px-4 py-3 text-center font-bold text-red-600">-${row[8]}</td>
+                        <td class="px-4 py-3 text-center font-bold text-slate-800">${row[9]}</td>
+                        <td class="px-4 py-3 text-center">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">${row[10] || 'COMPLETED'}</span>
+                        </td>
+                        <td class="px-4 py-3 text-slate-400 truncate max-w-[150px]" title="${row[11]}">${row[11] || '-'}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function filterTable() {
+            const input = document.getElementById("tableFilter");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("riwayatTable");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                if(tr[i].cells.length < 12) continue; 
+                let textValue = tr[i].textContent || tr[i].innerText;
+                tr[i].style.display = textValue.toLowerCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
