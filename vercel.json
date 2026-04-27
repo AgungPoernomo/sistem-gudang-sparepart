@@ -1,9 +1,0 @@
-{
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/src/app/login/index.html",
-      "permanent": false
-    }
-  ]
-}
