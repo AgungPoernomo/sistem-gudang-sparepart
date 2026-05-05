@@ -25,53 +25,48 @@
     <div class="flex h-screen w-full">
         <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-20 hidden lg:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
 
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-full transition-transform duration-300">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-full shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">
             <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
                 <img src="/public/logo-satoria.png" alt="Logo Satoria" class="h-9 w-auto mb-1 shrink-0">
-                <span class="text-xl font-extrabold text-blue-600 tracking-tight whitespace-nowrap">
-                   Gudang <span class="text-slate-800"> Sparepart </span>
+                <span class="text-xl font-black text-slate-800 tracking-tight whitespace-nowrap">
+                    Gudang <span class="text-blue-600"> Sparepart </span>
                 </span>
             </div>
-
             <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
                 <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Menu Operasional</p>
-                
-                <a href="../dashboard/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
-                    <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <a href="../dashboard/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
+                    <svg class="w-5 h-5 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                     Dashboard Utama
                 </a>
-                
-                <a href="../database/index.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl font-semibold shadow-sm border border-blue-100/50">
-                    <svg class="w-5 h-5 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                <a href="../database/index.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl font-bold shadow-sm border border-blue-100/50">
+                    <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                     Database Sparepart
                 </a>
-                
-                <a href="../inbound/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <a href="../inbound/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
                     <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
                     Barang Masuk
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <a href="../outbound/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
                     <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path></svg>
                     Barang Keluar
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <a href="../opname/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
                     <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                     Stock Opname
                 </a>
 
                 <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 mt-6">Administrasi</p>
-                <a href="#" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <a href="../purchase-request/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
                     <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Purchase Request
                 </a>
-                <a href="../pengaturan/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-medium transition-colors group">
+                <a href="../pengaturan/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
                     <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Pengaturan Sistem
                 </a>
             </div>
-
             <div class="p-5 border-t border-slate-100 shrink-0">
-                <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 rounded-xl font-bold transition-all group">
+                <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 hover:shadow-sm rounded-xl font-bold transition-all group">
                     <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     Keluar Sistem
                 </button>
@@ -80,9 +75,11 @@
 
         <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50/50">
             <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 lg:px-10 z-10 shrink-0">
-                <button onclick="toggleSidebar()" class="lg:hidden text-slate-500 hover:text-blue-600 p-2.5 rounded-lg bg-slate-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
+                    <div>
+                        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Database Master Items</h1>
+                        <p class="text-slate-500 mt-1.5 text-sm">Lihat ketersediaan minimum dan aktual setiap part berdasarkan Line operasional.</p>
+                    </div>
+
 
                 <div class="flex items-center ml-auto">
                     <div class="text-right mr-3 hidden sm:block">
@@ -96,14 +93,7 @@
             </header>
 
             <div class="flex-1 overflow-y-auto p-6 lg:p-10">
-                
-                <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                    <div>
-                        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Database Master Items</h1>
-                        <p class="text-slate-500 mt-1.5 text-sm">Lihat ketersediaan minimum dan aktual setiap part berdasarkan Line operasional.</p>
-                    </div>
-                </div>
-
+        
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                         
@@ -167,13 +157,13 @@
 
                         <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
                             <thead class="bg-slate-100 text-slate-500 font-bold border-b border-slate-200 uppercase text-[11px] tracking-wider sticky top-0 z-0">
-                                <tr>
-                                    <th class="px-6 py-4">Kode Part</th>
-                                    <th class="px-6 py-4 text-center">Minimum Stock</th>
-                                    <th class="px-6 py-4 text-center">Current Stock</th>
-                                    <th class="px-6 py-4 text-center">Part Used (Total)</th>
-                                    <th class="px-6 py-4">Status</th>
-                                </tr>
+                                <tr></h1>
+                                    <th class="px-6 py-4"></h1> Part </h1></th>
+                                    <th class="px-6 py-4 text-center"></h1> Minimum Stock </h1></th>
+                                    <th class="px-6 py-4 text-center"></h1> Current Stock </h1></th>
+                                    <th class="px-6 py-4 text-center"></h1> Sparepart Used (Total) </h1></th>
+                                    <th class="px-6 py-4"></p> Status </p></th>
+                                </h1></tr>
                             </thead>
                             <tbody id="tableBody" class="divide-y divide-slate-100">
                                 <tr>

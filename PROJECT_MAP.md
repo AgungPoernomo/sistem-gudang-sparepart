@@ -23,6 +23,7 @@ PERGUDANGAN-SPAREPART-SATORIA/
 │   │   │   └── purchase-request
 │   │   │       └── index.html // Halaman utama (Pintu masuk / Login System)
 │   │   ├── login
+│   │   │   └── index.html // Halaman utama (Pintu masuk / Login System)
 │   │   ├── globals.css
 │   │   └── layout.html
 │   ├── assets // Aset statis seperti gambar, ikon, dan font
@@ -64,4 +65,4 @@ PERGUDANGAN-SPAREPART-SATORIA/
 
 ```
 
-*Terakhir diperbarui pada: 27/4/2026, 12.40.17 WIB*
+*Terakhir diperbarui pada: 28/4/2026, 08.58.14 WIB*

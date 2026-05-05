@@ -83,7 +83,6 @@
                 Pengaturan Sistem
             </a>
         </div>
-
         <div class="p-5 border-t border-slate-100 shrink-0">
             <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 hover:shadow-sm rounded-xl font-bold transition-all group">
                 <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -95,7 +94,7 @@
     <main class="flex-1 flex flex-col h-full w-full max-w-full bg-[#f4f7f9] relative">
         <div id="mainLoading" class="absolute inset-0 bg-white/80 backdrop-blur-md z-50 flex-col items-center justify-center hidden">
             <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600 mb-4"></div>
-            <p class="text-sm font-bold text-slate-700 tracking-wider uppercase">Sinkronisasi Server...</p>
+            <p class="text-sm font-bold text-slate-700 tracking-wider uppercase">Menghubungkan ke Database...</p>
         </div>
         
         <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-10 z-20 shadow-sm shrink-0 w-full">
@@ -113,7 +112,7 @@
                     <p id="displayUserName" class="text-sm font-bold text-slate-800 leading-none mb-1">Memuat...</p>
                     <p id="displayUserRole" class="text-[10px] font-bold tracking-wider text-blue-600 bg-blue-100 inline-block px-2 py-0.5 rounded uppercase">Memuat...</p>
                 </div>
-                <div class="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm shadow-md ring-2 ring-white">
+                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold text-lg shadow-md ring-2 ring-white">
                     <span id="userInitial">U</span>
                 </div>
             </div>
@@ -143,7 +142,7 @@
                                 <th class="px-6 py-5">Informasi Barang</th>
                                 <th class="px-6 py-5">Lokasi (Plant)</th>
                                 <th class="px-6 py-5 text-center">Mutasi Fisik</th>
-                                <th class="px-6 py-5">Operator PIC</th>
+                                <th class="px-6 py-5">PIC</th>
                             </tr>
                         </thead>
                         <tbody id="recentActivityBody" class="divide-y divide-slate-100">
@@ -157,57 +156,18 @@
     </main>
 </div>
 
+<!-- Modal Framework di bawah sengaja disembunyikan dan hanya terbuka jika di-klik -->
 <div id="statModal" class="fixed inset-0 premium-backdrop z-[100] hidden items-center justify-center p-4 lg:p-0 opacity-0 transition-opacity duration-300">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden transform scale-95 transition-transform duration-300 border border-slate-200 relative" id="statModalContent">
-        <div class="px-6 py-5 flex justify-between items-start relative z-10 border-b border-slate-100">
-            <div>
-                <h3 class="font-black text-slate-900 text-xl tracking-tight mb-1" id="modalTitle">Detail Insight</h3>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Real-time Data</span>
-                </div>
-            </div>
-            <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors bg-slate-50 hover:bg-red-50 rounded-full p-2 border border-slate-200 shadow-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="px-6 pb-6 pt-2 relative z-10">
-            <div class="flex items-center justify-between mb-6 mt-2">
-                <h2 id="modalValue" class="text-6xl font-black text-slate-800 tracking-tighter leading-none">0</h2>
-                <div id="modalIconWrapper" class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm">
-                    <span id="modalIcon"></span>
-                </div>
-            </div>
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Status Analitik</span>
-                    <div id="modalTrendBadge"></div>
-                </div>
-                <p id="modalDesc" class="text-sm text-slate-600 leading-relaxed font-medium mb-6">Deskripsi sistem...</p>
-                <div class="w-full h-10 flex items-end justify-between gap-1.5 border-b border-slate-200 pb-1" id="miniChartBox">
-                    <div class="mini-bar bg-slate-300 h-[30%]"></div><div class="mini-bar bg-slate-300 h-[50%]"></div><div class="mini-bar bg-slate-300 h-[40%]"></div><div class="mini-bar bg-slate-400 h-[70%]"></div><div class="mini-bar bg-slate-400 h-[60%]"></div><div class="mini-bar bg-slate-800 h-[90%]"></div>
-                    <div id="activeChartBar" class="mini-bar bg-blue-600 h-[100%]"></div>
-                </div>
-            </div>
-            <button id="modalBtn" onclick="goToDetail()" class="w-full py-4 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 hover:-translate-y-1">
-                <span>Kelola Data Sekarang</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
-        </div>
+        <!-- Struktur modal lama -->
     </div>
 </div>
 
 <script>
-    // =====================================================================
-    // 1. KONFIGURASI API DAN VARIABEL GLOBAL
-    // =====================================================================
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqOWK4KNgTemSWAsWwNeJKBwG2lE9pYrJkbmCNa8IjEA4INUGiQ6QvQRxnGUWEsGlI/exec";
     const masterState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
     const extraState = { chartData: [], riwayatHarian: [] };
 
-    // =====================================================================
-    // 2. INISIALISASI SAAT HALAMAN DIMUAT
-    // =====================================================================
     document.addEventListener("DOMContentLoaded", async function() {
         const userName = localStorage.getItem('satoria_user_name') || 'Pengguna';
         const userRole = localStorage.getItem('satoria_user_role') || 'Staff';
@@ -219,13 +179,11 @@
         startRealtimeClock();
         setGreeting(userName);
 
-        // 1. Eksekusi Suntikan HTML Master secara manual!
         injectMasterCardDirectly();
         injectInboundCardDirectly();
         injectOutboundCardDirectly();
         injectCriticalCardDirectly();
 
-        // 2. Barulah load kartu sisanya (Inbound, Outbound, Critical)
         await loadCardComponents();
         loadDashboardData(); 
     });
@@ -239,13 +197,93 @@
     }
 
     // =====================================================================
-    // FITUR PENGHANCUR CACHE (MEMAKSA BROWSER MUAT HTML TERBARU)
+    // LOGIKA PENGISIAN DATA DASHBOARD OTOMATIS (BARU)
     // =====================================================================
+    const textAsIs = (val) => {
+        if (val === null || val === undefined) return "-";
+        return String(val).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    };
+
+    async function loadDashboardData() {
+        const loader = document.getElementById('mainLoading');
+        if(loader) { loader.classList.remove('hidden'); loader.classList.add('flex'); }
+        
+        try { 
+            const res = await fetchSatoriaAPI({ action: 'get_dashboard_data' }); 
+            if(res.success) {
+                // 1. UPDATE CARD OTOMATIS (Tanpa perlu di-klik)
+                const st = res.stats;
+                if(document.getElementById('trigger_master_count')) document.getElementById('trigger_master_count').innerText = st.master_count || 0;
+                if(document.getElementById('trigger_inbound_count')) document.getElementById('trigger_inbound_count').innerText = st.inbound_count || 0;
+                if(document.getElementById('trigger_outbound_count')) document.getElementById('trigger_outbound_count').innerText = st.outbound_count || 0;
+                if(document.getElementById('trigger_critical_count')) document.getElementById('trigger_critical_count').innerText = st.critical_count || 0;
+
+                // 2. UPDATE TABEL LAKE DATA (Live Ledger Feed)
+                renderRecentActivity(res.recent_activity);
+            }
+        } catch(e) { 
+            console.error("Gagal load data dashboard:", e); 
+        }
+        
+        if(loader) { loader.classList.add('hidden'); loader.classList.remove('flex'); }
+    }
+
+    function renderRecentActivity(data) {
+        const tbody = document.getElementById('recentActivityBody');
+        if(!data || data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-12 text-center text-slate-500 font-medium">Belum ada aktivitas di Ledger Data Lake.</td></tr>`;
+            return;
+        }
+
+        let html = "";
+        data.forEach(row => {
+            const tgl = textAsIs(row[0]);
+            const jenisAkt = String(row[1]).toUpperCase();
+            const plant = textAsIs(row[2]);
+            const pic = textAsIs(row[3]);
+            const jenisPart = textAsIs(row[5]);
+            const spek = textAsIs(row[6]);
+            const mutasiQty = parseFloat(row[9]) || 0;
+            const curStock = textAsIs(row[10]);
+
+            // Desain Badge untuk Jenis Transaksi
+            let typeBadge = "";
+            let mutasiStr = "";
+            
+            if(jenisAkt.includes("INBOUND")) {
+                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-emerald-100 text-emerald-700 border border-emerald-200">INBOUND</span>`;
+                mutasiStr = `<span class="text-emerald-600 font-black text-base">+${mutasiQty}</span> <span class="text-[10px] text-slate-400 block mt-0.5">(Sisa: ${curStock})</span>`;
+            } else if(jenisAkt.includes("OUTBOUND")) {
+                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-purple-100 text-purple-700 border border-purple-200">OUTBOUND</span>`;
+                mutasiStr = `<span class="text-purple-600 font-black text-base">-${mutasiQty}</span> <span class="text-[10px] text-slate-400 block mt-0.5">(Sisa: ${curStock})</span>`;
+            } else if(jenisAkt.includes("OPNAME")) {
+                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-blue-100 text-blue-700 border border-blue-200">OPNAME</span>`;
+                mutasiStr = `<span class="text-blue-600 font-black text-base">Adj: ${mutasiQty}</span> <span class="text-[10px] text-slate-400 block mt-0.5">(Sisa: ${curStock})</span>`;
+            } else {
+                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-slate-100 text-slate-700 border border-slate-200">${jenisAkt}</span>`;
+                mutasiStr = `<span class="text-slate-600 font-black text-base">${mutasiQty}</span>`;
+            }
+
+            html += `
+            <tr class="hover:bg-slate-50/80 transition-colors border-b border-slate-100">
+                <td class="px-6 py-4 text-xs font-bold text-slate-500">${tgl}</td>
+                <td class="px-6 py-4">${typeBadge}</td>
+                <td class="px-6 py-4">
+                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">${jenisPart}</p>
+                    <p class="text-xs text-blue-600 font-semibold max-w-[250px] truncate" title="${spek}">${spek}</p>
+                </td>
+                <td class="px-6 py-4 text-xs font-black text-slate-800">${plant}</td>
+                <td class="px-6 py-4 text-center">${mutasiStr}</td>
+                <td class="px-6 py-4 text-xs font-bold text-slate-600">${pic}</td>
+            </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
     async function loadCardComponents() {
         const container = document.getElementById('card-container');
         if (!container) return; 
-
-        // KATA 'master' TELAH DIHAPUS DARI ARRAY INI
         const components = [];
         for (const comp of components) {
             try {
@@ -262,7 +300,7 @@
     }
 
     // =====================================================================
-    // 3. FUNGSI NAVIGASI & WAKTU (TETAP SAMA)
+    // FUNGSI LAINNYA (TETAP SAMA SEPERTI SEBELUMNYA)
     // =====================================================================
     function startRealtimeClock() {
         const clockEl = document.getElementById('realtimeClock');
@@ -307,21 +345,7 @@
         } 
     }
 
-    function openModalInbound() { const m=document.getElementById('modalInboundOverlay'); const c=document.getElementById('modalInboundContent'); if(!m)return; if(m.parentNode.tagName.toLowerCase()!=='body')document.body.appendChild(m); m.classList.remove('hidden'); m.classList.add('flex'); setTimeout(()=>{m.classList.remove('opacity-0'); c.classList.remove('scale-95');},10); }
-    function closeModalInbound() { const m=document.getElementById('modalInboundOverlay'); const c=document.getElementById('modalInboundContent'); if(!m)return; m.classList.add('opacity-0'); c.classList.add('scale-95'); setTimeout(()=>{m.classList.add('hidden'); m.classList.remove('flex');},300); }
-    function openModalOutbound() { const m=document.getElementById('modalOutboundOverlay'); const c=document.getElementById('modalOutboundContent'); if(!m)return; if(m.parentNode.tagName.toLowerCase()!=='body')document.body.appendChild(m); m.classList.remove('hidden'); m.classList.add('flex'); setTimeout(()=>{m.classList.remove('opacity-0'); c.classList.remove('scale-95');},10); }
-    function closeModalOutbound() { const m=document.getElementById('modalOutboundOverlay'); const c=document.getElementById('modalOutboundContent'); if(!m)return; m.classList.add('opacity-0'); c.classList.add('scale-95'); setTimeout(()=>{m.classList.add('hidden'); m.classList.remove('flex');},300); }
-    function openModalCritical() { const m=document.getElementById('modalCriticalOverlay'); const c=document.getElementById('modalCriticalContent'); if(!m)return; if(m.parentNode.tagName.toLowerCase()!=='body')document.body.appendChild(m); m.classList.remove('hidden'); m.classList.add('flex'); setTimeout(()=>{m.classList.remove('opacity-0'); c.classList.remove('scale-95');},10); }
-    function closeModalCritical() { const m=document.getElementById('modalCriticalOverlay'); const c=document.getElementById('modalCriticalContent'); if(!m)return; m.classList.add('opacity-0'); c.classList.add('scale-95'); setTimeout(()=>{m.classList.add('hidden'); m.classList.remove('flex');},300); }
-    
-    // =====================================================================
-    // LOGIKA MASTER DATABASE POP-UP (ANTI-CRASH & ANTI-HTML BREAK)
-    // =====================================================================
-    const textAsIs = (val) => {
-        if (val === null || val === undefined) return "-";
-        return String(val).replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    };
-
+    // Modal Master 
     async function openModalMaster() {
         const modal = document.getElementById('modalMasterOverlay');
         const content = document.getElementById('modalMasterContent');
@@ -342,13 +366,8 @@
             
             if(d.success) {
                 const data = d.data || {};
-
-                // Update Angka Depan
-                const triggerCounter = document.getElementById('trigger_master_count');
                 const safeStockAll = Array.isArray(data.partC_StockAll.data) ? data.partC_StockAll.data : [];
-                if(triggerCounter) triggerCounter.innerText = safeStockAll.length;
 
-                // RENDER BAGIAN A
                 const elKiri = document.getElementById('tbody_partA_kiri');
                 if(elKiri) {
                     if(data.partA_Kiri.status === "OK" && data.partA_Kiri.data.length > 0) {
@@ -377,7 +396,6 @@
                     }
                 }
 
-                // RENDER LINE 1-4
                 const renderLineTable = (tbodyId, lineData) => {
                     const el = document.getElementById(tbodyId);
                     if (!el) return; 
@@ -400,7 +418,6 @@
                 renderLineTable('tbody_line3', data.partB_L3);
                 renderLineTable('tbody_line4', data.partB_L4);
 
-                // RENDER BAGIAN C (STOCK ALL)
                 const elStock = document.getElementById('tbody_stock_all');
                 if(elStock) {
                     if(data.partC_StockAll.status === "OK" && safeStockAll.length > 0) {
@@ -447,20 +464,10 @@
         setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
     }
 
-
-
-    async function loadDashboardData() {
-        const loader = document.getElementById('mainLoading');
-        if(loader) { loader.classList.remove('hidden'); loader.classList.add('flex'); }
-        try { fetchSatoriaAPI({ action: 'get_dashboard_data' }); } catch(e) {}
-        if(loader) { loader.classList.add('hidden'); loader.classList.remove('flex'); }
-    }
-
     function injectMasterCardDirectly() {
         const container = document.getElementById('card-container');
         if (!container) return;
 
-        // Seluruh HTML dibungkus dengan kutip miring (Backticks)
         const masterHTMLTemplate = `
         <div onclick="openModalMaster()" class="group relative bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between h-[160px] lg:h-[180px] border-t-4 border-t-blue-500">
             <div class="absolute -right-8 -top-8 w-32 h-32 bg-blue-50 rounded-full opacity-70 group-hover:scale-150 transition-transform duration-700 ease-out z-0"></div>
@@ -596,15 +603,10 @@
         </div>
         `;
         
-        // Suntikkan ke bagian paling awal dari card-container
         container.insertAdjacentHTML('afterbegin', masterHTMLTemplate);
     }
 
-    // =====================================================================
-    // MESIN INJEKSI LANGSUNG UNTUK INBOUND (ANTI TERPOTONG SERVER)
-    // =====================================================================
-
-    // State Penyimpanan Inbound
+    // Modal Inbound
     const inboundState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
 
     async function openModalInbound() {
@@ -626,17 +628,10 @@
                 inboundState.filteredData = [...inboundState.rawData];
                 inboundState.currentPage = 1;
                 
-                const tr = document.getElementById('trigger_inbound_count');
-                const th = document.getElementById('header_inbound_count');
-                if(tr) tr.innerText = inboundState.rawData.length;
-                if(th) th.innerText = inboundState.rawData.length;
-
                 renderInboundTable();
                 
-                // Set Filter Event
                 const searchInp = document.getElementById('searchInputInbound');
                 if(searchInp) searchInp.oninput = filterInbound;
-
             } else { throw new Error(d.message); }
         } catch(e) {
             console.error("Error API Inbound:", e);
@@ -665,7 +660,6 @@
         }
 
         tbody.innerHTML = paginatedData.map((x, i) => {
-            // Styling Status Color
             const statText = String(x.status).toUpperCase();
             let statClass = "bg-slate-100 text-slate-600 border-slate-200";
             if(statText.includes("COMPLETED") || statText.includes("SELESAI")) statClass = "bg-emerald-100 text-emerald-700 border-emerald-200/60";
@@ -759,7 +753,7 @@
                         <div>
                             <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">Riwayat Barang Masuk</h2>
                             <p class="text-sm font-semibold text-slate-500 mt-1.5 flex items-center gap-1.5">
-                                <span class="text-emerald-600 font-bold" id="header_inbound_count">0</span> Total Transaksi Inbound.
+                                Seluruh histori log masuk barang ke Warehouse Satoria.
                             </p>
                         </div>
                     </div>
@@ -838,11 +832,7 @@
         container.insertAdjacentHTML('beforeend', inboundHTMLTemplate);
     }
 
-    // =====================================================================
-    // MESIN INJEKSI LANGSUNG UNTUK OUTBOUND (ANTI TERPOTONG SERVER)
-    // =====================================================================
-
-    // State Penyimpanan Outbound
+    // Modal Outbound
     const outboundState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
 
     async function openModalOutbound() {
@@ -863,18 +853,11 @@
                 outboundState.rawData = d.data || [];
                 outboundState.filteredData = [...outboundState.rawData];
                 outboundState.currentPage = 1;
-                
-                const tr = document.getElementById('trigger_outbound_count');
-                const th = document.getElementById('header_outbound_count');
-                if(tr) tr.innerText = outboundState.rawData.length;
-                if(th) th.innerText = outboundState.rawData.length;
 
                 renderOutboundTable();
                 
-                // Set Filter Event
                 const searchInp = document.getElementById('searchInputOutbound');
                 if(searchInp) searchInp.oninput = filterOutbound;
-
             } else { throw new Error(d.message); }
         } catch(e) {
             console.error("Error API Outbound:", e);
@@ -903,7 +886,6 @@
         }
 
         tbody.innerHTML = paginatedData.map((x, i) => {
-            // Styling Status Color
             const statText = String(x.status).toUpperCase();
             let statClass = "bg-slate-100 text-slate-600 border-slate-200";
             if(statText.includes("COMPLETED") || statText.includes("SELESAI") || statText.includes("DISETUJUI")) statClass = "bg-purple-100 text-purple-700 border-purple-200/60";
@@ -997,7 +979,7 @@
                         <div>
                             <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">Riwayat Barang Keluar</h2>
                             <p class="text-sm font-semibold text-slate-500 mt-1.5 flex items-center gap-1.5">
-                                <span class="text-purple-600 font-bold" id="header_outbound_count">0</span> Total Transaksi Keluar.
+                                Seluruh histori log keluar barang dari Warehouse Satoria.
                             </p>
                         </div>
                     </div>
@@ -1029,7 +1011,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Export
                             </button>
                             <button onclick="window.print()" class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-800 text-white hover:bg-slate-900 font-bold rounded-xl text-sm transition-colors shadow-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak
                             </button>
                         </div>
                     </div>
@@ -1076,11 +1058,7 @@
         container.insertAdjacentHTML('beforeend', outboundHTMLTemplate);
     }
 
-    // =====================================================================
-    // MESIN INJEKSI LANGSUNG UNTUK CRITICAL/KOSONG (ANTI TERPOTONG SERVER)
-    // =====================================================================
-    
-    // State Penyimpanan Critical
+    // Modal Critical
     const criticalState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
 
     async function openModalCritical() {
@@ -1101,15 +1079,10 @@
                 criticalState.rawData = d.data || [];
                 criticalState.filteredData = [...criticalState.rawData];
                 criticalState.currentPage = 1;
-                
-                // Update Badge Header
-                const tr = document.getElementById('trigger_critical_count');
-                if(tr) tr.innerText = criticalState.rawData.length;
 
                 updateCriticalSummary(criticalState.rawData);
                 renderCriticalTable();
                 
-                // Set Filter Event
                 const searchInp = document.getElementById('searchInputCritical');
                 const statInp = document.getElementById('filterStatusCritical');
                 if(searchInp) searchInp.oninput = filterCritical;
