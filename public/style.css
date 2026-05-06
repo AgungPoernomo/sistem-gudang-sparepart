@@ -748,14 +748,6 @@ video {
   margin-left: 0.5rem;
 }
 
-.ml-3 {
-  margin-left: 0.75rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
-}
-
 .ml-auto {
   margin-left: auto;
 }
@@ -994,16 +986,16 @@ video {
   width: 2rem;
 }
 
-.w-96 {
-  width: 24rem;
-}
-
 .w-auto {
   width: auto;
 }
 
 .w-full {
   width: 100%;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .min-w-0 {
@@ -1040,6 +1032,10 @@ video {
 
 .max-w-\[1700px\] {
   max-width: 1700px;
+}
+
+.max-w-\[200px\] {
+  max-width: 200px;
 }
 
 .max-w-\[250px\] {
@@ -1345,10 +1341,6 @@ video {
 
 .border-t-4 {
   border-top-width: 4px;
-}
-
-.border-none {
-  border-style: none;
 }
 
 .border-amber-200\/60 {
@@ -1670,10 +1662,6 @@ video {
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
-.bg-slate-100\/80 {
-  background-color: rgb(241 245 249 / 0.8);
-}
-
 .bg-slate-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
@@ -1895,6 +1883,10 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
 }
 
 .pb-4 {
@@ -2228,6 +2220,16 @@ video {
   text-decoration-line: underline;
 }
 
+.placeholder-emerald-300::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(110 231 183 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-emerald-300::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(110 231 183 / var(--tw-placeholder-opacity));
+}
+
 .placeholder-slate-400::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(148 163 184 / var(--tw-placeholder-opacity));
@@ -2414,22 +2416,6 @@ body {
   color: rgb(30 41 59 / var(--tw-text-opacity));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.focus-within\:border-blue-300:focus-within {
-  --tw-border-opacity: 1;
-  border-color: rgb(147 197 253 / var(--tw-border-opacity));
-}
-
-.focus-within\:bg-white:focus-within {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.focus-within\:shadow-sm:focus-within {
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .hover\:-translate-y-0:hover {
@@ -2885,8 +2871,8 @@ body {
     top: 7rem;
   }
 
-  .lg\:ml-0 {
-    margin-left: 0px;
+  .lg\:top-4 {
+    top: 1rem;
   }
 
   .lg\:block {

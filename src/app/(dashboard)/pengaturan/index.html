@@ -7,7 +7,7 @@
     <link href="/public/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style> 
-        body { font-family: 'Inter', sans-serif; } 
+        body { font-family: 'Inter', sans-serif; overflow: hidden; /* Mencegah scroll pada body utama */ } 
         #sidebar { transition: transform 0.3s ease-in-out; } 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 flex min-h-screen overflow-x-hidden">
+<body class="bg-slate-50 text-slate-800 flex h-screen w-full">
 
     <script>
         if (!localStorage.getItem('satoria_user_name')) {
@@ -32,6 +32,7 @@
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
 
+        <!-- SIDEBAR TETAP BERADA DI TEMPATNYA -->
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-full shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">
             <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
                 <img src="/public/logo-satoria.png" alt="Logo Satoria" class="h-9 w-auto mb-1 shrink-0">
@@ -39,6 +40,7 @@
                     Gudang <span class="text-blue-600"> Sparepart </span>
                 </span>
             </div>
+            
             <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
                 <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Menu Operasional</p>
                 <a href="../dashboard/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
@@ -71,6 +73,7 @@
                     Pengaturan Sistem
                 </a>
             </div>
+            
             <div class="p-5 border-t border-slate-100 shrink-0">
                 <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 hover:shadow-sm rounded-xl font-bold transition-all group">
                     <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -79,13 +82,13 @@
             </div>
         </aside>
 
-    <main class="flex-1 flex flex-col w-full min-w-0 min-h-screen relative">
+    <main class="flex-1 flex flex-col w-full min-w-0 h-screen relative overflow-hidden">
         <div id="mainLoading" class="absolute inset-0 bg-white/80 backdrop-blur-md z-50 flex-col items-center justify-center hidden">
             <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600 mb-4"></div>
             <p id="loadingText" class="text-sm font-semibold text-slate-700">Menyinkronkan Sistem...</p>
         </div>
 
-        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-10 z-30 shadow-sm shrink-0 sticky top-0 w-full">
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-10 z-30 shadow-sm shrink-0 w-full">
             <div class="flex items-center gap-4">
                 <button onclick="toggleSidebar()" class="lg:hidden text-slate-500 hover:text-blue-600 focus:outline-none bg-slate-100 p-2.5 rounded-lg transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -104,9 +107,10 @@
             </div>
         </header>
 
-        <div class="p-4 lg:p-6 xl:p-8 flex flex-col lg:flex-row items-start gap-6 relative w-full min-w-0">
+        <!-- KONTEN BISA DI-SCROLL MANDIRI -->
+        <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 lg:p-6 xl:p-8 flex flex-col lg:flex-row items-start gap-6 relative w-full">
             
-            <div class="w-full lg:w-[350px] xl:w-[400px] shrink-0 lg:sticky lg:top-28">
+            <div class="w-full lg:w-[350px] xl:w-[400px] shrink-0 lg:sticky lg:top-4">
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 xl:p-6">
                     <h2 class="text-base xl:text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-5 flex items-center">
                         <span class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mr-3 text-sm">
@@ -120,16 +124,24 @@
                             <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Pilih Tindakan</label>
                             <select id="action_mode" required onchange="toggleFormMode()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-bold text-blue-700 outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="TAMBAH">Tambah Spesifikasi Baru</option>
+                                <option value="TAMBAH_JENIS" class="font-bold text-emerald-600 bg-emerald-50">++ Tambah Jenis Part Baru</option>
                                 <option value="EDIT">Edit Spesifikasi Lama</option>
                                 <option value="HAPUS">Hapus Spesifikasi (Permanen)</option>
                             </select>
                         </div>
 
-                        <div>
+                        <div id="div_jenis_part">
                             <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Jenis Part</label>
-                            <select id="jenis_part" required onchange="fetchSpecs()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-slate-300">
+                            <select id="jenis_part" onchange="fetchSpecs()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-slate-300">
                                 <option value="">Memuat...</option>
                             </select>
+                        </div>
+
+                        <!-- KHUSUS UNTUK TAMBAH JENIS PART BARU -->
+                        <div id="div_new_jenis" class="hidden">
+                            <label class="block text-[11px] font-bold text-emerald-600 uppercase mb-1.5">Nama Jenis Part Baru</label>
+                            <input type="text" id="jenis_part_new" class="w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-emerald-500 placeholder-emerald-300" placeholder="Contoh: SENSOR, MOTOR...">
+                            <p class="text-[10px] text-slate-400 mt-1 italic">*Sistem akan otomatis membuat struktur kolom di semua Plant.</p>
                         </div>
 
                         <div id="div_old_spec" class="hidden">
@@ -151,13 +163,13 @@
                 </div>
             </div>
 
-            <div class="flex-1 w-full min-w-0 flex flex-col gap-8">
+            <div class="flex-1 w-full min-w-0 flex flex-col gap-8 pb-10">
                 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-full overflow-hidden">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-full overflow-hidden shrink-0">
                     <div class="px-4 md:px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-slate-800 text-lg flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                                 Log Riwayat Validasi Master
                             </h3>
                             <p class="text-xs text-slate-500 mt-1">Mencatat siapa yang mengubah, menambah, atau menghapus spesifikasi part.</p>
@@ -171,7 +183,7 @@
                                     <th class="px-4 py-3">Nama (Role)</th>
                                     <th class="px-4 py-3 text-center">Tindakan</th>
                                     <th class="px-4 py-3">Jenis Part</th>
-                                    <th class="px-4 py-3">Spesifikasi Part</th>
+                                    <th class="px-4 py-3">Spesifikasi Part / Detail</th>
                                     <th class="px-4 py-3 text-center">Status</th>
                                 </tr>
                             </thead>
@@ -182,7 +194,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-full overflow-hidden mb-10">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-full overflow-hidden shrink-0">
                     <div class="px-4 md:px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 class="font-bold text-slate-800 text-lg flex items-center">
@@ -222,7 +234,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-full overflow-hidden mb-10">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-full overflow-hidden shrink-0">
                     <div class="px-4 md:px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h3 class="font-bold text-slate-800 text-lg flex items-center">
@@ -269,7 +281,7 @@
             document.getElementById('displayUserRole').innerText = localStorage.getItem('satoria_user_role') || 'Staff';
             document.getElementById('userInitial').innerText = userName.charAt(0).toUpperCase();
             
-            toggleFormMode(); // Set initial mode
+            toggleFormMode(); 
             loadSettingsData();
         });
 
@@ -285,30 +297,48 @@
         // ======================= LOGIKA UI FORM VALIDASI =======================
         function toggleFormMode() {
             const mode = document.getElementById('action_mode').value;
+            
+            const divJenis = document.getElementById('div_jenis_part');
+            const divNewJenis = document.getElementById('div_new_jenis');
             const divOld = document.getElementById('div_old_spec');
             const divNew = document.getElementById('div_new_spec');
             const btn = document.getElementById('btnSubmitVal');
 
+            // Reset mandatory
+            document.getElementById('jenis_part').required = false;
+            document.getElementById('jenis_part_new').required = false;
             document.getElementById('part_spesifikasi_old').required = false;
             document.getElementById('part_spesifikasi_new').required = false;
 
             if (mode === "TAMBAH") {
-                divOld.classList.add('hidden');
-                divNew.classList.remove('hidden');
+                divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
+                divOld.classList.add('hidden'); divNew.classList.remove('hidden');
+                document.getElementById('jenis_part').required = true;
                 document.getElementById('part_spesifikasi_new').required = true;
                 btn.className = "w-full mt-4 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
                 btn.innerText = "Tambah Baru";
-            } else if (mode === "EDIT") {
-                divOld.classList.remove('hidden');
-                divNew.classList.remove('hidden');
+            } 
+            else if (mode === "TAMBAH_JENIS") {
+                divJenis.classList.add('hidden'); divNewJenis.classList.remove('hidden');
+                divOld.classList.add('hidden'); divNew.classList.add('hidden');
+                document.getElementById('jenis_part_new').required = true;
+                btn.className = "w-full mt-4 text-white bg-emerald-600 hover:bg-emerald-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Buat Struktur Kategori Part Baru";
+            }
+            else if (mode === "EDIT") {
+                divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
+                divOld.classList.remove('hidden'); divNew.classList.remove('hidden');
                 document.getElementById('label_new_spec').innerText = "Diubah Menjadi (Ketik Baru)";
+                document.getElementById('jenis_part').required = true;
                 document.getElementById('part_spesifikasi_old').required = true;
                 document.getElementById('part_spesifikasi_new').required = true;
                 btn.className = "w-full mt-4 text-white bg-amber-600 hover:bg-amber-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
                 btn.innerText = "Simpan Editan";
-            } else if (mode === "HAPUS") {
-                divOld.classList.remove('hidden');
-                divNew.classList.add('hidden');
+            } 
+            else if (mode === "HAPUS") {
+                divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
+                divOld.classList.remove('hidden'); divNew.classList.add('hidden');
+                document.getElementById('jenis_part').required = true;
                 document.getElementById('part_spesifikasi_old').required = true;
                 btn.className = "w-full mt-4 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
                 btn.innerText = "Hapus Permanen";
@@ -350,39 +380,43 @@
             } catch(e) { console.error(e); }
         }
 
-        // SUBMIT FORM VALIDASI (TAMBAH / EDIT / HAPUS)
         document.getElementById('valForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const mode = document.getElementById('action_mode').value;
             const jp = document.getElementById('jenis_part').value;
+            const jp_new = document.getElementById('jenis_part_new').value;
             const specOld = document.getElementById('part_spesifikasi_old').value;
             const specNew = document.getElementById('part_spesifikasi_new').value;
 
             const payload = {
                 nama: localStorage.getItem('satoria_user_name'),
-                nik: "Sistem", // Opsional
+                nik: "Sistem", 
                 role: localStorage.getItem('satoria_user_role'),
-                jenis_part: jp
+                action: "add_validation_item", // Default action placeholder
+                mode_tindakan: mode,
+                jenis_part: mode === "TAMBAH_JENIS" ? jp_new : jp
             };
 
-            let finalAction = "";
-
-            if (mode === "TAMBAH") {
-                finalAction = "add_validation_item";
+            if (mode === "TAMBAH_JENIS") {
+                if(!confirm(`PERINGATAN!\nAnda akan membuat struktur kolom baru untuk "${jp_new}" di SEMUA PLANT.\nProses ini mungkin memakan waktu beberapa detik.\nLanjutkan?`)) return;
+                payload.action = "add_validation_item";
+            } 
+            else if (mode === "TAMBAH") {
+                payload.action = "add_validation_item";
                 payload.new_item = specNew;
-            } else if (mode === "EDIT") {
-                finalAction = "edit_validation_item";
+            } 
+            else if (mode === "EDIT") {
+                payload.action = "edit_validation_item";
                 payload.old_item = specOld;
                 payload.new_item = specNew;
-            } else if (mode === "HAPUS") {
+            } 
+            else if (mode === "HAPUS") {
                 if(!confirm(`Yakin MENGHAPUS '${specOld}'?`)) return;
-                finalAction = "delete_validation_item";
+                payload.action = "delete_validation_item";
                 payload.item_to_delete = specOld;
             }
 
-            payload.action = finalAction;
-
-            showLoading(true, "Memproses perubahan master...");
+            showLoading(true, mode === "TAMBAH_JENIS" ? "Membangun Struktur Kategori di Server..." : "Memproses perubahan master...");
             try {
                 const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const result = await res.json();
@@ -390,9 +424,10 @@
                 if(result.success) {
                     alert("Sukses: " + result.message);
                     document.getElementById('part_spesifikasi_new').value = "";
+                    document.getElementById('jenis_part_new').value = "";
                     document.getElementById('part_spesifikasi_old').innerHTML = '<option value="">Pilih Spesifikasi...</option>';
                     document.getElementById('jenis_part').value = "";
-                    loadSettingsData(); // Refresh log tabel
+                    loadSettingsData(); 
                 } else { alert("Gagal: " + result.message); }
             } catch(e) { alert("Error Koneksi."); console.error(e); }
             showLoading(false);
@@ -412,17 +447,18 @@
                 try { const d = new Date(row[0]); if(!isNaN(d)) dateStr = d.toLocaleString('id-ID', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}); } catch(e){}
                 
                 let badge = "bg-slate-100 text-slate-700";
-                if(row[4] === "TAMBAH") badge = "bg-blue-100 text-blue-700";
-                if(row[4] === "EDIT") badge = "bg-amber-100 text-amber-700";
-                if(row[4] === "HAPUS") badge = "bg-red-100 text-red-700";
+                if(row[4].includes("TAMBAH")) badge = "bg-blue-100 text-blue-700";
+                if(row[4].includes("EDIT")) badge = "bg-amber-100 text-amber-700";
+                if(row[4].includes("HAPUS")) badge = "bg-red-100 text-red-700";
+                if(row[4].includes("JENIS BARU")) badge = "bg-emerald-100 text-emerald-700";
 
                 return `
                     <tr class="hover:bg-slate-50 border-b border-slate-100">
                         <td class="px-4 py-3 text-slate-500 text-xs">${dateStr}</td>
                         <td class="px-4 py-3 font-semibold text-slate-700">${row[1]} <span class="text-[10px] text-slate-400 font-normal">(${row[3]})</span></td>
                         <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded font-bold text-[10px] ${badge}">${row[4]}</span></td>
-                        <td class="px-4 py-3 text-slate-600">${row[5]}</td>
-                        <td class="px-4 py-3 font-bold text-slate-800">${row[6]}</td>
+                        <td class="px-4 py-3 text-slate-600 font-bold">${row[5]}</td>
+                        <td class="px-4 py-3 font-bold text-slate-800 text-xs">${row[6]}</td>
                         <td class="px-4 py-3 text-center text-[10px] font-bold text-emerald-600">${row[7]}</td>
                     </tr>
                 `;
@@ -438,10 +474,10 @@
                 try { const d = new Date(row[0]); if(!isNaN(d)) dateStr = d.toLocaleString('id-ID', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}); } catch(e){}
 
                 let actColor = "text-slate-600";
-                if(row[1] === "INBOUND") actColor = "text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded";
-                if(row[1] === "OUTBOUND") actColor = "text-purple-600 bg-purple-50 px-2 py-0.5 rounded";
-                if(row[1] === "STOCK OPNAME") actColor = "text-amber-600 bg-amber-50 px-2 py-0.5 rounded";
-                if(row[1] === "PENGAJUAN PR") actColor = "text-blue-600 bg-blue-50 px-2 py-0.5 rounded";
+                if(row[1].includes("INBOUND")) actColor = "text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded";
+                if(row[1].includes("OUTBOUND")) actColor = "text-purple-600 bg-purple-50 px-2 py-0.5 rounded";
+                if(row[1].includes("OPNAME")) actColor = "text-amber-600 bg-amber-50 px-2 py-0.5 rounded";
+                if(row[1].includes("PR")) actColor = "text-blue-600 bg-blue-50 px-2 py-0.5 rounded";
 
                 return `
                     <tr class="hover:bg-slate-50 border-b border-slate-100">
@@ -449,13 +485,13 @@
                         <td class="px-4 py-3 font-bold text-[10px]"><span class="${actColor}">${row[1]}</span></td>
                         <td class="px-4 py-3 font-semibold text-slate-700">${row[2]}</td>
                         <td class="px-4 py-3 text-slate-600">${row[3]}</td>
-                        <td class="px-4 py-3">${row[4]}</td>
-                        <td class="px-4 py-3 text-slate-600">${row[5]}</td>
-                        <td class="px-4 py-3 font-bold text-blue-600">${row[6]}</td>
-                        <td class="px-4 py-3">${row[7]}</td>
+                        <td class="px-4 py-3 text-xs">${row[4]}</td>
+                        <td class="px-4 py-3 text-slate-600 font-bold text-[11px]">${row[5]}</td>
+                        <td class="px-4 py-3 font-bold text-blue-600 text-[11px] max-w-[200px] truncate" title="${row[6]}">${row[6]}</td>
+                        <td class="px-4 py-3 text-xs">${row[7]}</td>
                         <td class="px-4 py-3 text-center text-slate-500">${row[8]}</td>
-                        <td class="px-4 py-3 text-center font-bold text-slate-800">${row[9]}</td>
-                        <td class="px-4 py-3 text-center font-bold text-slate-800">${row[10]}</td>
+                        <td class="px-4 py-3 text-center font-black text-slate-800">${row[9]}</td>
+                        <td class="px-4 py-3 text-center font-black text-slate-800">${row[10]}</td>
                     </tr>
                 `;
             }).join('');
@@ -481,7 +517,6 @@
             }).join('');
         }
 
-        // FUNGSI PENCARIAN TABEL GLOBAL
         function searchTable(inputId, tableId, minCells) {
             const input = document.getElementById(inputId);
             const filter = input.value.toLowerCase();
