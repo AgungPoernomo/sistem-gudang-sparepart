@@ -21,6 +21,14 @@
             background-color: #f8fafc; 
             box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
         }
+
+        /* CSS KHUSUS UNTUK PRINT / CETAK PDF */
+        @media print {
+            body * { visibility: hidden; }
+            #printArea, #printArea * { visibility: visible; }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; display: block !important; padding: 20px; background: white; color: black; }
+            @page { size: A4; margin: 15mm; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 flex min-h-screen overflow-x-hidden">
@@ -59,7 +67,7 @@
                     Barang Keluar
                 </a>
                 <a href="../opname/index.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl font-bold shadow-sm border border-blue-100/50">
-                    <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    <svg class="w-5 h-5 mr-3 shrink-0 text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                     Stock Opname
                 </a>
                 <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 mt-6">Administrasi</p>
@@ -130,7 +138,8 @@
                             </div>
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">PIC Auditor</label>
-                                <input type="text" id="pic" required readonly class="w-full p-2 bg-slate-100 border border-slate-300 rounded-lg text-sm font-medium text-slate-600">
+                                <!-- INPUT DIUBAH MENJADI BISA DIEDIT -->
+                                <input type="text" id="pic" required class="w-full p-2 bg-white border border-slate-300 rounded-lg text-sm font-medium focus:border-purple-500 outline-none text-slate-800">
                             </div>
                         </div>
 
@@ -178,8 +187,13 @@
                             <textarea id="catatan" required rows="2" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-purple-500" placeholder="Contoh: Part hilang, rusak, dll."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full mt-2 text-white bg-purple-600 hover:bg-purple-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
+                        <!-- TOMBOL SIMPAN & CETAK HASIL AUDIT -->
+                        <button type="submit" class="w-full mt-4 text-white bg-purple-600 hover:bg-purple-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
                             Simpan Hasil Audit
+                        </button>
+                        <button type="button" onclick="cetakAudit()" class="w-full mt-2 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                            Cetak Hasil Audit
                         </button>
                     </form>
                 </div>
@@ -205,6 +219,10 @@
                             <h3 class="font-bold text-slate-800 text-lg">Riwayat Stock Opname</h3>
                             <p class="text-xs text-slate-500 mt-1">25 Data Audit Terakhir</p>
                         </div>
+                        <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm shrink-0" title="Download ke Excel">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Excel
+                        </button>
                     </div>
                     
                     <div class="overflow-auto w-full max-h-[50vh] lg:max-h-[500px]">
@@ -235,18 +253,99 @@
         </div>
     </main>
 
+    <!-- AREA CETAK PDF (Hanya Muncul Saat Ditekan Tombol Print) -->
+    <div id="printArea" class="hidden">
+        <div style="display: flex; align-items: center; border-bottom: 4px solid #000; padding-bottom: 15px; margin-bottom: 25px;">
+            <img src="/public/logo-satoria.png" alt="Satoria Logo" style="height: 60px; margin-right: 20px;">
+            <div>
+                <h1 style="font-size: 26px; font-weight: 900; margin: 0; color: #000; text-transform: uppercase;">PT. SATORIA ANEKA INDUSTRI</h1>
+                <p style="font-size: 13px; margin: 0; color: #333;">Kawasan Industri Satoria, Jl. Raya Wonorejo, Pasuruan, Jawa Timur</p>
+            </div>
+        </div>
+        
+        <h2 style="text-align: center; font-size: 18px; font-weight: bold; text-decoration: underline; margin-bottom: 30px; color: #000;">LAPORAN HASIL STOCK OPNAME (AUDIT FISIK)</h2>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 14px; color: #000;">
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold; width: 35%;">Tanggal Audit</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_tgl"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Auditor (PIC)</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_pic"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Lokasi (Plant/Line)</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_plant"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Nomor Rak</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_rak"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Jenis Part</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_jenis"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Spesifikasi Detail</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_spek"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Stock Sistem</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_stock_sistem"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Stock Fisik (Aktual)</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_stock_fisik"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Selisih</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_selisih"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Status Audit</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_status"></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #000; font-weight: bold;">Catatan Khusus</td>
+                <td style="padding: 10px; border: 1px solid #000;" id="print_catatan"></td>
+            </tr>
+        </table>
+
+        <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 50px; color: #000;">
+            <div style="width: 30%;">
+                <p style="margin-bottom: 90px;">Auditor (PIC),</p>
+                <p style="font-weight: bold; text-decoration: underline;" id="print_pic_ttd"></p>
+                <p style="font-size: 12px; margin-top: 5px;">Warehouse Checker</p>
+            </div>
+            <div style="width: 30%;">
+                <p style="margin-bottom: 90px;">Mengetahui,</p>
+                <p style="font-weight: bold;">( ______________________ )</p>
+                <p style="font-size: 12px; margin-top: 5px;">Warehouse SPV / Manager</p>
+            </div>
+            <div style="width: 30%;">
+                <p style="margin-bottom: 90px;">Disetujui Oleh,</p>
+                <p style="font-weight: bold; text-decoration: underline;">Management</p>
+                <p style="font-size: 12px; margin-top: 5px;">Plant Director</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzceIT51fL8miDRoAAQQZTcGtuiOQ3ZXcx6O3q-QJO1W3Cgg8A5MjDVPCmsC4Yfqqv_/exec";
-        let myChart = null; // Variabel Global untuk Chart.js
+        let myChart = null; 
+        let opnameHistoryData = []; // Variabel untuk menyimpan memori data Excel
 
         document.addEventListener("DOMContentLoaded", function() {
             const userName = localStorage.getItem('satoria_user_name') || 'Pengguna';
             document.getElementById('displayUserName').innerText = userName;
             document.getElementById('displayUserRole').innerText = localStorage.getItem('satoria_user_role') || 'Staff';
             document.getElementById('userInitial').innerText = userName.charAt(0).toUpperCase();
+            
+            // PIC sekarang bisa diedit, tapi defaultnya tetap pakai nama user
             document.getElementById('pic').value = userName;
             
-            initChart(); // Buat kerangka chart kosong
+            initChart(); 
             loadInitialData();
         });
 
@@ -269,8 +368,6 @@
             else { loader.classList.add('hidden'); loader.classList.remove('flex'); }
         }
 
-        // ======================= API CALLS =======================
-
         async function loadInitialData() {
             showLoading(true, "Memuat Data Terbaru....");
             try {
@@ -283,8 +380,9 @@
                     populateSelect('nomor_rak', d.nomor_rak);
 
                     if(d.history && d.history.length > 0) {
+                        opnameHistoryData = d.history; // Simpan memori untuk Excel
                         renderHistoryTable(d.history);
-                        updateChartData(d.history); // Update grafik dengan data terbaru
+                        updateChartData(d.history); 
                     } else {
                         document.getElementById('historyBody').innerHTML = `<tr><td colspan="11" class="px-4 py-8 text-center text-slate-400">Belum ada transaksi audit.</td></tr>`;
                     }
@@ -341,11 +439,10 @@
             showLoading(false);
         }
 
-        // LOGIKA STOCK OPNAME
         function calculateDiff() {
             const sistem = parseFloat(document.getElementById('stock_sistem').value) || 0;
             const fisik = parseFloat(document.getElementById('actual_stock').value) || 0;
-            const diff = fisik - sistem; // Selisih = Fisik - Sistem
+            const diff = fisik - sistem; 
             
             const diffEl = document.getElementById('selisih');
             diffEl.value = diff;
@@ -355,7 +452,6 @@
             else diffEl.className = "w-full bg-transparent text-lg font-bold text-center text-red-600 outline-none";
         }
 
-        // SUBMIT FORM
         document.getElementById('opnameForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -386,6 +482,7 @@
 
                 if(result.success) {
                     if(result.history) {
+                        opnameHistoryData = result.history; // Simpan memori untuk Excel
                         renderHistoryTable(result.history);
                         updateChartData(result.history);
                     }
@@ -402,13 +499,12 @@
             showLoading(false);
         });
 
-        // RENDER TABEL (11 KOLOM)
         function renderHistoryTable(dataArray) {
             const tbody = document.getElementById('historyBody');
             let html = "";
             
             dataArray.forEach(row => {
-                if(String(row[0]).toUpperCase().includes("TGL")) return; // Bypass Header
+                if(String(row[0]).toUpperCase().includes("TGL")) return; 
                 
                 let dateStr = row[0];
                 try { 
@@ -416,7 +512,6 @@
                     if(!isNaN(d)) dateStr = d.toLocaleString('id-ID', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}); 
                 } catch(e){}
 
-                // Warna badge status
                 let badgeColor = "bg-slate-100 text-slate-700";
                 if(row[9] === "MATCH") badgeColor = "bg-emerald-100 text-emerald-700";
                 if(row[9] === "SHORTAGE") badgeColor = "bg-red-100 text-red-700";
@@ -445,7 +540,6 @@
             tbody.innerHTML = html;
         }
 
-        // ================= CHART.JS LOGIC =================
         function initChart() {
             const ctx = document.getElementById('opnameChart').getContext('2d');
             myChart = new Chart(ctx, {
@@ -461,12 +555,11 @@
         }
 
         function updateChartData(historyData) {
-            // Ambil 5 transaksi opname terakhir untuk divisualisasikan
             let data = historyData.filter(row => !String(row[0]).toUpperCase().includes("TGL")).slice(0, 5).reverse();
             
-            const labels = data.map(r => r[5]); // Spesifikasi Part
-            const dataSistem = data.map(r => parseFloat(r[6]) || 0); // Stock Sistem
-            const dataFisik = data.map(r => parseFloat(r[7]) || 0); // Actual Stock
+            const labels = data.map(r => r[5]); 
+            const dataSistem = data.map(r => parseFloat(r[6]) || 0); 
+            const dataFisik = data.map(r => parseFloat(r[7]) || 0); 
 
             myChart.data = {
                 labels: labels,
@@ -476,6 +569,87 @@
                 ]
             };
             myChart.update();
+        }
+
+        // =========================================================
+        // FITUR BARU: CETAK HASIL AUDIT (PDF)
+        // =========================================================
+        function cetakAudit() {
+            const pic = document.getElementById('pic').value;
+            const plant = document.getElementById('plant').value;
+            const rak = document.getElementById('nomor_rak').value;
+            const jenis = document.getElementById('jenis_part').value;
+            const spek = document.getElementById('part_spesifikasi').value;
+            const sistem = document.getElementById('stock_sistem').value;
+            const aktual = document.getElementById('actual_stock').value;
+            const selisih = document.getElementById('selisih').value;
+            const catatan = document.getElementById('catatan').value;
+
+            if(!jenis || !spek || !aktual) {
+                alert("Harap lengkapi Form Audit (Jenis Part, Spesifikasi, & Stok Fisik) sebelum mencetak!");
+                return;
+            }
+
+            let statusOpname = "MATCH";
+            if (parseFloat(selisih) < 0) statusOpname = "SHORTAGE (Minus)";
+            if (parseFloat(selisih) > 0) statusOpname = "SURPLUS (Berlebih)";
+
+            document.getElementById('print_tgl').innerText = new Date().toLocaleDateString('id-ID', {day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'});
+            document.getElementById('print_pic').innerText = pic;
+            document.getElementById('print_pic_ttd').innerText = pic;
+            document.getElementById('print_plant').innerText = plant;
+            document.getElementById('print_rak').innerText = rak || "-";
+            document.getElementById('print_jenis').innerText = jenis;
+            document.getElementById('print_spek').innerText = spek;
+            document.getElementById('print_stock_sistem').innerText = sistem + " Pcs";
+            document.getElementById('print_stock_fisik').innerText = aktual + " Pcs";
+            document.getElementById('print_selisih').innerText = selisih + " Pcs";
+            document.getElementById('print_status').innerText = statusOpname;
+            document.getElementById('print_catatan').innerText = catatan || "-";
+
+            window.print();
+        }
+
+        // =========================================================
+        // FITUR BARU: DOWNLOAD EXCEL
+        // =========================================================
+        function exportToExcel() {
+            if(opnameHistoryData.length === 0) {
+                alert("Peringatan: Tidak ada data yang bisa di-download.");
+                return;
+            }
+
+            let csvData = "Tanggal Opname,Plant,PIC,No Rak,Jenis Part,Spesifikasi,Stock Sistem,Fisik,Selisih,Status,Catatan\n";
+            
+            opnameHistoryData.forEach(row => {
+                if(String(row[0]).toUpperCase().includes("TGL")) return;
+
+                let tgl_Op = String(row[0]).replace(/,/g, '');
+                let plant = String(row[1]).replace(/,/g, '');
+                let pic = String(row[2]).replace(/,/g, '');
+                let no_rak = String(row[3]).replace(/,/g, '');
+                let jenis = String(row[4]).replace(/,/g, '');
+                let spek = `"${String(row[5]).replace(/"/g, '""')}"`;
+                let stock_sistem= String(row[6]).replace(/,/g, '');
+                let stock_fisik= String(row[7]).replace(/,/g, '');
+                let selisih= `"${String(row[8] || '-').replace(/"/g, '""')}"`;
+                let status = String(row[9] || '-').replace(/,/g, '');
+                let catatan= `"${String(row[10] || '-').replace(/"/g, '""')}"`;
+
+                csvData += `${tgl_Op},${plant},${pic},${no_rak},${jenis},${spek},${stock_sistem},${stock_fisik},${selisih},${status},${catatan}\n`;
+            });
+
+            const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Laporan_Stock_Opname_Satoria_${new Date().toLocaleDateString('id-ID')}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>

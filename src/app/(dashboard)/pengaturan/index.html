@@ -7,7 +7,7 @@
     <link href="/public/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style> 
-        body { font-family: 'Inter', sans-serif; overflow: hidden; /* Mencegah scroll pada body utama */ } 
+        body { font-family: 'Inter', sans-serif; overflow: hidden; } 
         #sidebar { transition: transform 0.3s ease-in-out; } 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -19,6 +19,13 @@
             z-index: 10; 
             background-color: #f8fafc; 
             box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        }
+        
+        /* Styling untuk Radio Button Tabs */
+        .radio-tab:checked + label {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
         }
     </style>
 </head>
@@ -32,7 +39,7 @@
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
 
-        <!-- SIDEBAR TETAP BERADA DI TEMPATNYA -->
+        <!-- SIDEBAR -->
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-full shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">
             <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
                 <img src="/public/logo-satoria.png" alt="Logo Satoria" class="h-9 w-auto mb-1 shrink-0">
@@ -110,7 +117,7 @@
         <!-- KONTEN BISA DI-SCROLL MANDIRI -->
         <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 lg:p-6 xl:p-8 flex flex-col lg:flex-row items-start gap-6 relative w-full">
             
-            <div class="w-full lg:w-[350px] xl:w-[400px] shrink-0 lg:sticky lg:top-4">
+            <div class="w-full lg:w-[350px] xl:w-[420px] shrink-0 lg:sticky lg:top-4">
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 xl:p-6">
                     <h2 class="text-base xl:text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-5 flex items-center">
                         <span class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mr-3 text-sm">
@@ -119,31 +126,58 @@
                         Master Data Spesifikasi
                     </h2>
 
+                    <!-- TABS PILIHAN KATEGORI -->
+                    <div class="flex gap-2 mb-6 p-1 bg-slate-100 rounded-xl">
+                        <input type="radio" id="tab_jenis" name="master_tab" value="JENIS" class="hidden radio-tab" onchange="toggleFormMode()">
+                        <label for="tab_jenis" class="flex-1 text-center py-2 text-xs font-bold text-slate-500 rounded-lg cursor-pointer transition-colors border border-transparent">
+                            Kategori (Jenis)
+                        </label>
+
+                        <input type="radio" id="tab_spek" name="master_tab" value="SPEK" class="hidden radio-tab" checked onchange="toggleFormMode()">
+                        <label for="tab_spek" class="flex-1 text-center py-2 text-xs font-bold text-slate-500 rounded-lg cursor-pointer transition-colors border border-transparent">
+                            Spesifikasi (Isi)
+                        </label>
+                    </div>
+
                     <form id="valForm" class="space-y-4">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Pilih Tindakan</label>
-                            <select id="action_mode" required onchange="toggleFormMode()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-bold text-blue-700 outline-none focus:ring-2 focus:ring-blue-500">
+                        
+                        <!-- PILIHAN TINDAKAN DINAMIS -->
+                        <div id="wrapper_action_jenis" class="hidden">
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Tindakan Untuk Jenis Part</label>
+                            <select id="action_jenis" onchange="toggleFormMode()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-bold text-blue-700 outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="TAMBAH_JENIS">++ Tambah Jenis Part Baru</option>
+                                <option value="EDIT_JENIS">Edit Nama Jenis Part Lama</option>
+                                <option value="HAPUS_JENIS">Hapus Jenis Part (Permanen)</option>
+                            </select>
+                        </div>
+
+                        <div id="wrapper_action_spek">
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Tindakan Untuk Spesifikasi</label>
+                            <select id="action_spek" onchange="toggleFormMode()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-bold text-indigo-700 outline-none focus:ring-2 focus:ring-indigo-500">
                                 <option value="TAMBAH">Tambah Spesifikasi Baru</option>
-                                <option value="TAMBAH_JENIS" class="font-bold text-emerald-600 bg-emerald-50">++ Tambah Jenis Part Baru</option>
                                 <option value="EDIT">Edit Spesifikasi Lama</option>
                                 <option value="HAPUS">Hapus Spesifikasi (Permanen)</option>
                             </select>
                         </div>
 
+                        <hr class="border-slate-100">
+
+                        <!-- DROPDOWN PILIH JENIS PART (MUNCUL DI HAMPIR SEMUA KONDISI KECUALI TAMBAH JENIS BARU) -->
                         <div id="div_jenis_part">
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Jenis Part</label>
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5" id="label_jenis_part">Pilih Jenis Part</label>
                             <select id="jenis_part" onchange="fetchSpecs()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-slate-300">
                                 <option value="">Memuat...</option>
                             </select>
                         </div>
 
-                        <!-- KHUSUS UNTUK TAMBAH JENIS PART BARU -->
+                        <!-- INPUT TEXT UNTUK JENIS PART BARU -->
                         <div id="div_new_jenis" class="hidden">
-                            <label class="block text-[11px] font-bold text-emerald-600 uppercase mb-1.5">Nama Jenis Part Baru</label>
-                            <input type="text" id="jenis_part_new" class="w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-emerald-500 placeholder-emerald-300" placeholder="Contoh: SENSOR, MOTOR...">
-                            <p class="text-[10px] text-slate-400 mt-1 italic">*Sistem akan otomatis membuat struktur kolom di semua Plant.</p>
+                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5" id="label_new_jenis">Nama Jenis Part Baru</label>
+                            <input type="text" id="jenis_part_new" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-300" placeholder="Ketik jenis part...">
+                            <p class="text-[10px] text-slate-400 mt-1 italic hidden" id="warn_jenis_baru">*Sistem otomatis membuat struktur kolom di semua Plant.</p>
                         </div>
 
+                        <!-- DROPDOWN PILIH SPEK LAMA -->
                         <div id="div_old_spec" class="hidden">
                             <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5">Pilih Spesifikasi Lama</label>
                             <select id="part_spesifikasi_old" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-slate-300">
@@ -151,12 +185,13 @@
                             </select>
                         </div>
 
+                        <!-- INPUT TEXT UNTUK SPEK BARU -->
                         <div id="div_new_spec">
                             <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1.5" id="label_new_spec">Nama Spesifikasi Baru</label>
-                            <input type="text" id="part_spesifikasi_new" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ketik nama spesifikasi...">
+                            <input type="text" id="part_spesifikasi_new" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ketik spesifikasi part...">
                         </div>
 
-                        <button id="btnSubmitVal" type="submit" class="w-full mt-4 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
+                        <button id="btnSubmitVal" type="submit" class="w-full mt-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
                             Simpan Perubahan
                         </button>
                     </form>
@@ -172,7 +207,7 @@
                                 <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                                 Log Riwayat Validasi Master
                             </h3>
-                            <p class="text-xs text-slate-500 mt-1">Mencatat siapa yang mengubah, menambah, atau menghapus spesifikasi part.</p>
+                            <p class="text-xs text-slate-500 mt-1">Mencatat siapa yang mengubah, menambah, atau menghapus struktur database.</p>
                         </div>
                     </div>
                     <div class="overflow-auto w-full max-h-[350px]">
@@ -183,7 +218,7 @@
                                     <th class="px-4 py-3">Nama (Role)</th>
                                     <th class="px-4 py-3 text-center">Tindakan</th>
                                     <th class="px-4 py-3">Jenis Part</th>
-                                    <th class="px-4 py-3">Spesifikasi Part / Detail</th>
+                                    <th class="px-4 py-3">Spesifikasi / Detail Keterangan</th>
                                     <th class="px-4 py-3 text-center">Status</th>
                                 </tr>
                             </thead>
@@ -296,7 +331,10 @@
 
         // ======================= LOGIKA UI FORM VALIDASI =======================
         function toggleFormMode() {
-            const mode = document.getElementById('action_mode').value;
+            const isTabJenis = document.getElementById('tab_jenis').checked;
+            
+            const wrapJenis = document.getElementById('wrapper_action_jenis');
+            const wrapSpek = document.getElementById('wrapper_action_spek');
             
             const divJenis = document.getElementById('div_jenis_part');
             const divNewJenis = document.getElementById('div_new_jenis');
@@ -304,44 +342,82 @@
             const divNew = document.getElementById('div_new_spec');
             const btn = document.getElementById('btnSubmitVal');
 
-            // Reset mandatory
+            // Tentukan Mode mana yang sedang aktif
+            const mode = isTabJenis ? document.getElementById('action_jenis').value : document.getElementById('action_spek').value;
+
+            // Atur Visibilitas Dropdown Tindakan
+            if(isTabJenis) {
+                wrapJenis.classList.remove('hidden');
+                wrapSpek.classList.add('hidden');
+            } else {
+                wrapJenis.classList.add('hidden');
+                wrapSpek.classList.remove('hidden');
+            }
+
+            // Reset semua atribut mandatory
             document.getElementById('jenis_part').required = false;
             document.getElementById('jenis_part_new').required = false;
             document.getElementById('part_spesifikasi_old').required = false;
             document.getElementById('part_spesifikasi_new').required = false;
 
-            if (mode === "TAMBAH") {
-                divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
-                divOld.classList.add('hidden'); divNew.classList.remove('hidden');
-                document.getElementById('jenis_part').required = true;
-                document.getElementById('part_spesifikasi_new').required = true;
-                btn.className = "w-full mt-4 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
-                btn.innerText = "Tambah Baru";
-            } 
-            else if (mode === "TAMBAH_JENIS") {
+            // ================= LOGIKA TAB: JENIS PART =================
+            if (mode === "TAMBAH_JENIS") {
                 divJenis.classList.add('hidden'); divNewJenis.classList.remove('hidden');
                 divOld.classList.add('hidden'); divNew.classList.add('hidden');
+                document.getElementById('label_new_jenis').innerText = "Nama Jenis Part Baru";
+                document.getElementById('warn_jenis_baru').classList.remove('hidden');
                 document.getElementById('jenis_part_new').required = true;
-                btn.className = "w-full mt-4 text-white bg-emerald-600 hover:bg-emerald-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
-                btn.innerText = "Buat Struktur Kategori Part Baru";
+                btn.className = "w-full mt-6 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Simpan Kategori Baru";
             }
+            else if (mode === "EDIT_JENIS") {
+                divJenis.classList.remove('hidden'); divNewJenis.classList.remove('hidden');
+                divOld.classList.add('hidden'); divNew.classList.add('hidden');
+                document.getElementById('label_jenis_part').innerText = "Pilih Jenis Part Lama";
+                document.getElementById('label_new_jenis').innerText = "Ubah Namanya Menjadi";
+                document.getElementById('warn_jenis_baru').classList.add('hidden');
+                document.getElementById('jenis_part').required = true;
+                document.getElementById('jenis_part_new').required = true;
+                btn.className = "w-full mt-6 text-white bg-amber-600 hover:bg-amber-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Ubah Nama Kategori";
+            }
+            else if (mode === "HAPUS_JENIS") {
+                divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
+                divOld.classList.add('hidden'); divNew.classList.add('hidden');
+                document.getElementById('label_jenis_part').innerText = "Pilih Jenis Part Yang Akan Dihapus";
+                document.getElementById('jenis_part').required = true;
+                btn.className = "w-full mt-6 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Hapus Kolom Kategori (Permanen)";
+            }
+            // ================= LOGIKA TAB: SPESIFIKASI =================
+            else if (mode === "TAMBAH") {
+                divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
+                divOld.classList.add('hidden'); divNew.classList.remove('hidden');
+                document.getElementById('label_jenis_part').innerText = "Jenis Part";
+                document.getElementById('jenis_part').required = true;
+                document.getElementById('part_spesifikasi_new').required = true;
+                btn.className = "w-full mt-6 text-white bg-indigo-600 hover:bg-indigo-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Simpan Spesifikasi Baru";
+            } 
             else if (mode === "EDIT") {
                 divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
                 divOld.classList.remove('hidden'); divNew.classList.remove('hidden');
-                document.getElementById('label_new_spec').innerText = "Diubah Menjadi (Ketik Baru)";
+                document.getElementById('label_jenis_part').innerText = "Jenis Part";
+                document.getElementById('label_new_spec').innerText = "Ubah Menjadi (Ketik Baru)";
                 document.getElementById('jenis_part').required = true;
                 document.getElementById('part_spesifikasi_old').required = true;
                 document.getElementById('part_spesifikasi_new').required = true;
-                btn.className = "w-full mt-4 text-white bg-amber-600 hover:bg-amber-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
-                btn.innerText = "Simpan Editan";
+                btn.className = "w-full mt-6 text-white bg-amber-600 hover:bg-amber-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Simpan Editan Spesifikasi";
             } 
             else if (mode === "HAPUS") {
                 divJenis.classList.remove('hidden'); divNewJenis.classList.add('hidden');
                 divOld.classList.remove('hidden'); divNew.classList.add('hidden');
+                document.getElementById('label_jenis_part').innerText = "Jenis Part";
                 document.getElementById('jenis_part').required = true;
                 document.getElementById('part_spesifikasi_old').required = true;
-                btn.className = "w-full mt-4 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
-                btn.innerText = "Hapus Permanen";
+                btn.className = "w-full mt-6 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md";
+                btn.innerText = "Hapus Spesifikasi (Permanen)";
             }
         }
 
@@ -382,7 +458,10 @@
 
         document.getElementById('valForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const mode = document.getElementById('action_mode').value;
+            
+            const isTabJenis = document.getElementById('tab_jenis').checked;
+            const mode = isTabJenis ? document.getElementById('action_jenis').value : document.getElementById('action_spek').value;
+            
             const jp = document.getElementById('jenis_part').value;
             const jp_new = document.getElementById('jenis_part_new').value;
             const specOld = document.getElementById('part_spesifikasi_old').value;
@@ -394,29 +473,35 @@
                 role: localStorage.getItem('satoria_user_role'),
                 action: "add_validation_item", // Default action placeholder
                 mode_tindakan: mode,
-                jenis_part: mode === "TAMBAH_JENIS" ? jp_new : jp
+                jenis_part: jp
             };
 
+            // Validasi Khusus Sebelum Submit
             if (mode === "TAMBAH_JENIS") {
                 if(!confirm(`PERINGATAN!\nAnda akan membuat struktur kolom baru untuk "${jp_new}" di SEMUA PLANT.\nProses ini mungkin memakan waktu beberapa detik.\nLanjutkan?`)) return;
-                payload.action = "add_validation_item";
+                payload.jenis_part = jp_new;
             } 
+            else if (mode === "EDIT_JENIS") {
+                if(!confirm(`PERINGATAN!\nAnda akan mengubah seluruh header dari "${jp}" menjadi "${jp_new}" di SEMUA PLANT.\nLanjutkan?`)) return;
+                payload.old_jenis_part = jp;
+                payload.jenis_part = jp_new;
+            }
+            else if (mode === "HAPUS_JENIS") {
+                if(!confirm(`BAHAYA!\nAnda yakin ingin MENGHAPUS PERMANEN seluruh kolom "${jp}" beserta isinya di semua Plant?\nTindakan ini tidak bisa dibatalkan!`)) return;
+            }
             else if (mode === "TAMBAH") {
-                payload.action = "add_validation_item";
                 payload.new_item = specNew;
             } 
             else if (mode === "EDIT") {
-                payload.action = "edit_validation_item";
                 payload.old_item = specOld;
                 payload.new_item = specNew;
             } 
             else if (mode === "HAPUS") {
-                if(!confirm(`Yakin MENGHAPUS '${specOld}'?`)) return;
-                payload.action = "delete_validation_item";
+                if(!confirm(`Yakin MENGHAPUS Spesifikasi '${specOld}'?`)) return;
                 payload.item_to_delete = specOld;
             }
 
-            showLoading(true, mode === "TAMBAH_JENIS" ? "Membangun Struktur Kategori di Server..." : "Memproses perubahan master...");
+            showLoading(true, "Memproses Data ke Server Master...");
             try {
                 const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const result = await res.json();
@@ -450,7 +535,6 @@
                 if(row[4].includes("TAMBAH")) badge = "bg-blue-100 text-blue-700";
                 if(row[4].includes("EDIT")) badge = "bg-amber-100 text-amber-700";
                 if(row[4].includes("HAPUS")) badge = "bg-red-100 text-red-700";
-                if(row[4].includes("JENIS BARU")) badge = "bg-emerald-100 text-emerald-700";
 
                 return `
                     <tr class="hover:bg-slate-50 border-b border-slate-100">
