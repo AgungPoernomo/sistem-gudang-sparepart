@@ -21,7 +21,6 @@
             box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
         }
         
-        /* CSS KHUSUS UNTUK PRINT / CETAK PDF */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
@@ -178,11 +177,7 @@
                         </div>
 
                         <button type="submit" class="w-full mt-2 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
-                            Catat Pengajuan
-                        </button>
-                        <button type="button" onclick="cetakPR()" class="w-full mt-2 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                            Cetak Form PDF
+                            Simpan Data
                         </button>
                     </form>
                 </div>
@@ -233,7 +228,6 @@
         </div>
     </main>
 
-    <!-- Modal Kedatangan Barang -->
     <div id="arrivalModal" class="fixed inset-0 bg-slate-900/60 z-[100] hidden items-center justify-center backdrop-blur-sm p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden transform transition-all">
             <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
@@ -267,10 +261,8 @@
         </div>
     </div>
 
-    <!-- AREA CETAK PDF (Hanya Muncul Saat Ditekan Tombol Print) -->
     <div id="printArea" class="hidden">
         <div style="display: flex; align-items: center; border-bottom: 4px solid #000; padding-bottom: 15px; margin-bottom: 25px;">
-            <!-- Pastikan URL Logo Satoria sudah benar agar bisa tercetak -->
             <img src="/public/logo-satoria.png" alt="Satoria Logo" style="height: 60px; margin-right: 20px;">
             <div>
                 <h1 style="font-size: 26px; font-weight: 900; margin: 0; color: #000; text-transform: uppercase;">PT. SATORIA ANEKA INDUSTRI</h1>
@@ -556,9 +548,6 @@
             }
         }
 
-        // =========================================================
-        // FITUR BARU: DOWNLOAD EXCEL
-        // =========================================================
         function exportToExcel() {
             if(prHistoryData.length === 0) {
                 alert("Peringatan: Tidak ada data yang bisa di-download.");
@@ -599,31 +588,6 @@
             document.body.removeChild(link);
         }
 
-        // =========================================================
-        // FITUR BARU: CETAK FORM PDF (Dengan Template Resmi Satoria)
-        // =========================================================
-        function cetakPR() {
-            const noPr = document.getElementById('no_pr').value;
-            const spesifikasi = document.getElementById('part_spesifikasi').value;
-            const jumlah = document.getElementById('jumlah').value;
-
-            if(!noPr || !spesifikasi || !jumlah) {
-                alert("Harap isi Nomor PR, Spesifikasi Part, dan Jumlah terlebih dahulu sebelum mencetak!");
-                return;
-            }
-
-            document.getElementById('print_no_pr').innerText = noPr;
-            document.getElementById('print_tgl').innerText = new Date().toLocaleDateString('id-ID', {day: '2-digit', month: 'long', year: 'numeric'});
-            document.getElementById('print_plant').innerText = document.getElementById('plant').value;
-            document.getElementById('print_jenis').innerText = document.getElementById('jenis_part').value;
-            document.getElementById('print_spek').innerText = spesifikasi;
-            document.getElementById('print_qty').innerText = `${jumlah} ${document.getElementById('satuan').value}`;
-            document.getElementById('print_catatan').innerText = document.getElementById('catatan').value || "-";
-            document.getElementById('print_pic_ttd').innerText = document.getElementById('pic').value;
-
-            // Trigger window print (akan memanggil @media print di CSS)
-            window.print();
-        }
     </script>
 </body>
 </html>

@@ -41,7 +41,8 @@
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
 
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-full shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">
+        <!-- PERBAIKAN SIDEBAR: Tambah h-screen dan sticky top-0 -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-screen sticky top-0 shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">
             <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
                 <img src="/public/logo-satoria.png" alt="Logo Satoria" class="h-9 w-auto mb-1 shrink-0">
                 <span class="text-xl font-black text-slate-800 tracking-tight whitespace-nowrap">
@@ -80,7 +81,9 @@
                     Pengaturan Sistem
                 </a>
             </div>
-            <div class="p-5 border-t border-slate-100 shrink-0">
+            
+            <!-- PERBAIKAN TOMBOL LOGOUT: Tambah mt-auto -->
+            <div class="p-5 border-t border-slate-100 shrink-0 mt-auto">
                 <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 hover:shadow-sm rounded-xl font-bold transition-all group">
                     <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     Keluar Sistem
@@ -138,7 +141,6 @@
                             </div>
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">PIC Auditor</label>
-                                <!-- INPUT DIUBAH MENJADI BISA DIEDIT -->
                                 <input type="text" id="pic" required class="w-full p-2 bg-white border border-slate-300 rounded-lg text-sm font-medium focus:border-purple-500 outline-none text-slate-800">
                             </div>
                         </div>
@@ -187,12 +189,11 @@
                             <textarea id="catatan" required rows="2" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-sm outline-none focus:border-purple-500" placeholder="Contoh: Part hilang, rusak, dll."></textarea>
                         </div>
 
-                        <!-- TOMBOL SIMPAN & CETAK HASIL AUDIT -->
                         <button type="submit" class="w-full mt-4 text-white bg-purple-600 hover:bg-purple-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md">
                             Simpan Hasil Audit
                         </button>
                         <button type="button" onclick="cetakAudit()" class="w-full mt-2 text-white bg-red-600 hover:bg-red-700 font-bold rounded-xl text-sm px-5 py-3 transition-colors shadow-md flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                             Cetak Hasil Audit
                         </button>
                     </form>
@@ -217,12 +218,14 @@
                     <div class="px-4 md:px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
                         <div>
                             <h3 class="font-bold text-slate-800 text-lg">Riwayat Stock Opname</h3>
-                            <p class="text-xs text-slate-500 mt-1">25 Data Audit Terakhir</p>
+                            <p class="text-xs text-slate-500 mt-1">Seluruh Data Audit Fisik</p>
                         </div>
-                        <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm shrink-0" title="Download ke Excel">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            Excel
-                        </button>
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 shadow-sm shrink-0" title="Download ke Excel">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Excel
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="overflow-auto w-full max-h-[50vh] lg:max-h-[500px]">
@@ -334,7 +337,7 @@
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzceIT51fL8miDRoAAQQZTcGtuiOQ3ZXcx6O3q-QJO1W3Cgg8A5MjDVPCmsC4Yfqqv_/exec";
         let myChart = null; 
-        let opnameHistoryData = []; // Variabel untuk menyimpan memori data Excel
+        let opnameHistoryData = []; 
 
         document.addEventListener("DOMContentLoaded", function() {
             const userName = localStorage.getItem('satoria_user_name') || 'Pengguna';
@@ -342,7 +345,6 @@
             document.getElementById('displayUserRole').innerText = localStorage.getItem('satoria_user_role') || 'Staff';
             document.getElementById('userInitial').innerText = userName.charAt(0).toUpperCase();
             
-            // PIC sekarang bisa diedit, tapi defaultnya tetap pakai nama user
             document.getElementById('pic').value = userName;
             
             initChart(); 
@@ -380,7 +382,7 @@
                     populateSelect('nomor_rak', d.nomor_rak);
 
                     if(d.history && d.history.length > 0) {
-                        opnameHistoryData = d.history; // Simpan memori untuk Excel
+                        opnameHistoryData = d.history; 
                         renderHistoryTable(d.history);
                         updateChartData(d.history); 
                     } else {
@@ -482,7 +484,7 @@
 
                 if(result.success) {
                     if(result.history) {
-                        opnameHistoryData = result.history; // Simpan memori untuk Excel
+                        opnameHistoryData = result.history; 
                         renderHistoryTable(result.history);
                         updateChartData(result.history);
                     }
@@ -571,9 +573,6 @@
             myChart.update();
         }
 
-        // =========================================================
-        // FITUR BARU: CETAK HASIL AUDIT (PDF)
-        // =========================================================
         function cetakAudit() {
             const pic = document.getElementById('pic').value;
             const plant = document.getElementById('plant').value;
@@ -610,9 +609,6 @@
             window.print();
         }
 
-        // =========================================================
-        // FITUR BARU: DOWNLOAD EXCEL
-        // =========================================================
         function exportToExcel() {
             if(opnameHistoryData.length === 0) {
                 alert("Peringatan: Tidak ada data yang bisa di-download.");
