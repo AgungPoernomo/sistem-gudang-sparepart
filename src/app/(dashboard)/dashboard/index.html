@@ -3,51 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Sistem Pergudangan Satoria</title>
+    <title>Dashboard Utama | Sistem Pergudangan Satoria</title>
     <link href="/public/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style> 
-        body { font-family: 'Inter', sans-serif; } 
+        body { font-family: 'Inter', sans-serif; overflow: hidden; } 
         #sidebar { transition: transform 0.3s ease-in-out; } 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .enterprise-card {
-            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -1px rgba(15, 23, 42, 0.02);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; z-index: 1;
-        }
-        .enterprise-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: transparent; transition: background 0.4s ease; z-index: 2;
-        }
-        .enterprise-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08); border-color: #cbd5e1; }
-        .card-blue:hover::before { background: #3b82f6; }
-        .card-emerald:hover::before { background: #10b981; }
-        .card-purple:hover::before { background: #8b5cf6; }
-        .card-red::before { background: #ef4444; } 
-
-        .bg-pattern { position: absolute; right: -10%; top: -10%; opacity: 0.04; z-index: 0; transition: transform 0.5s ease; }
-        .enterprise-card:hover .bg-pattern { transform: scale(1.1) rotate(-5deg); }
-        .premium-backdrop { background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        .mini-bar { width: 12%; border-radius: 2px 2px 0 0; animation: growBar 1s ease-out forwards; transform-origin: bottom; }
-        @keyframes growBar { 0% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 flex h-screen w-full max-w-full overflow-hidden">
+<body class="bg-slate-50 text-slate-800 flex h-screen w-full">
 
     <script>
         if (!localStorage.getItem('satoria_user_name')) { window.location.href = "../../login/index.html"; }
     </script>
 
-    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-screen sticky top-0 shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">        <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform -translate-x-full lg:translate-x-0 lg:static flex flex-col h-full shadow-2xl lg:shadow-none transition-transform duration-300 shrink-0">
+        <div class="flex flex-col items-center justify-center h-24 border-b border-slate-100 px-6 shrink-0 overflow-hidden">
             <img src="/public/logo-satoria.png" alt="Logo Satoria" class="h-9 w-auto mb-1 shrink-0">
-                <span class="text-xl font-black text-slate-800 tracking-tight whitespace-nowrap">
-                    Gudang <span class="text-blue-600"> Sparepart </span>
-                </span>        
+            <span class="text-xl font-black text-slate-800 tracking-tight whitespace-nowrap">
+                Gudang <span class="text-blue-600"> Sparepart </span>
+            </span>        
         </div>
         <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
             <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Menu Operasional</p>
@@ -71,18 +52,12 @@
                 <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                 Stock Opname
             </a>
-
-            <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 mt-6">Administrasi</p>
-            <a href="../purchase-request/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
-                <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Purchase Request
-            </a>
             <a href="../pengaturan/index.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-blue-600 rounded-xl font-semibold transition-colors group">
                 <svg class="w-5 h-5 mr-3 shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                Pengaturan Sistem
+                Master Data Editor
             </a>
         </div>
-        <div class="p-5 border-t border-slate-100 shrink-0">
+        <div class="p-5 border-t border-slate-100 shrink-0 mt-auto">
             <button onclick="logout()" class="flex items-center justify-center w-full px-4 py-3 text-red-600 bg-red-50 hover:bg-red-100 hover:shadow-sm rounded-xl font-bold transition-all group">
                 <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Keluar Sistem
@@ -93,7 +68,7 @@
     <main class="flex-1 flex flex-col h-full w-full max-w-full bg-[#f4f7f9] relative">
         <div id="mainLoading" class="absolute inset-0 bg-white/80 backdrop-blur-md z-50 flex-col items-center justify-center hidden">
             <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600 mb-4"></div>
-            <p class="text-sm font-bold text-slate-700 tracking-wider uppercase">Menghubungkan ke Database...</p>
+            <p class="text-sm font-bold text-slate-700 tracking-wider uppercase">Menarik Metrik Plant...</p>
         </div>
         
         <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-10 z-20 shadow-sm shrink-0 w-full">
@@ -111,1236 +86,442 @@
                     <p id="displayUserName" class="text-sm font-bold text-slate-800 leading-none mb-1">Memuat...</p>
                     <p id="displayUserRole" class="text-[10px] font-bold tracking-wider text-blue-600 bg-blue-100 inline-block px-2 py-0.5 rounded uppercase">Memuat...</p>
                 </div>
-                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold text-lg shadow-md ring-2 ring-white">
+                <div class="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm shadow-md ring-2 ring-white">
                     <span id="userInitial">U</span>
                 </div>
             </div>
         </header>
 
-        <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-10 w-full relative z-0">
-            <div class="mb-12 max-w-4xl">
-                <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-3" id="greetingText">Selamat Datang!</h1>
-                <p class="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Pantau metrik inti pergudangan Anda. Semua data disinkronkan secara real-time dari Ledger Lake Data & Master Sparepart Plant Satoria.</p>
+        <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-8 w-full relative z-0">
+            <div class="mb-10">
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight mb-2" id="greetingText">Selamat Datang!</h1>
+                <p class="text-slate-500 text-sm font-medium">Metrik Real-time performa Gudang Master (Terpisah Per Line).</p>
             </div>
             
-            <div id="card-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16 w-full"></div>
+            <datalist id="listJenisPart"></datalist>
 
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm w-full max-w-full overflow-hidden flex flex-col mb-12">
-                <div class="px-6 py-6 border-b border-slate-100 flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white gap-2 shrink-0">
-                    <div>
-                        <h3 class="font-black text-slate-800 text-xl tracking-tight">Live Ledger Feed</h3>
-                        <p class="text-xs text-slate-500 font-medium mt-1.5">10 Aktivitas pergudangan terakhir secara real-time.</p>
+            <!-- WADAH 4 KARTU LINE LANGSUNG (EMBEDDED) -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-16 w-full">
+                
+                <!-- KARTU LINE 1 -->
+                <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col h-[650px] relative transition-transform hover:-translate-y-1 hover:shadow-lg duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-blue-500"></div>
+                    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-slate-800 text-lg tracking-tight">Stock Sparepart LINE 1</h3>
+                                <p class="text-[10px] font-bold text-blue-600 tracking-widest uppercase">Plant Warehouse</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 border-b border-slate-100 shrink-0 bg-white">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Kategori/Jenis</label>
+                                <input type="text" list="listJenisPart" id="search_line1_kategori" oninput="filterCardTable('search_line1_kategori', 'search_line1_spek', 'tbody_line1')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Pilih / Ketik Jenis Part...">
+                            </div>
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Spesifikasi Detail</label>
+                                <input type="text" id="search_line1_spek" oninput="filterCardTable('search_line1_kategori', 'search_line1_spek', 'tbody_line1')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Ketik Spesifikasi Part...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 p-5 shrink-0 bg-slate-50/30">
+                        <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Part</p>
+                            <h4 class="text-2xl font-black text-slate-800" id="line1_master_count">0</h4>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Barang Masuk</p>
+                            <h4 class="text-2xl font-black text-emerald-700" id="line1_inbound_count">0</h4>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-purple-600 uppercase tracking-widest mb-1">Barang Keluar</p>
+                            <h4 class="text-2xl font-black text-purple-700" id="line1_outbound_count">0</h4>
+                        </div>
+                        <div class="bg-red-50 border border-red-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-1">Stok Kritis</p>
+                            <h4 class="text-2xl font-black text-red-700" id="line1_critical_count">0</h4>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 overflow-auto custom-scrollbar border-t border-slate-100 relative bg-white">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase text-[10px] tracking-widest shadow-sm z-10">
+                                <tr>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kategori Part</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kode Material</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Spesifikasi Detail</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center">Min. Stock</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center text-blue-600 bg-blue-50/50">Aktual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_line1" class="divide-y divide-slate-100 text-sm">
+                                <tr><td colspan="5" class="px-4 py-8 text-center text-slate-400">Menyinkronkan Server...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="overflow-x-auto w-full">
-                    <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap min-w-[800px]">
-                        <thead class="bg-slate-50/50 text-slate-500 font-bold border-b border-slate-200 uppercase text-[10px] tracking-widest">
-                            <tr>
-                                <th class="px-6 py-5">Waktu Transaksi</th>
-                                <th class="px-6 py-5">Jenis Transaksi</th>
-                                <th class="px-6 py-5">Informasi Barang</th>
-                                <th class="px-6 py-5">Lokasi (Plant)</th>
-                                <th class="px-6 py-5 text-center">Mutasi Fisik</th>
-                                <th class="px-6 py-5">PIC</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentActivityBody" class="divide-y divide-slate-100">
-                            <tr><td colspan="6" class="px-6 py-12 text-center text-slate-400 font-medium">Menarik data analitik terbaru dari server...</td></tr>
-                        </tbody>
-                    </table>
+
+                <!-- KARTU LINE 2 -->
+                <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col h-[650px] relative transition-transform hover:-translate-y-1 hover:shadow-lg duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-emerald-500"></div>
+                    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-slate-800 text-lg tracking-tight">Stock Sparepart LINE 2</h3>
+                                <p class="text-[10px] font-bold text-emerald-600 tracking-widest uppercase">Plant Warehouse</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 border-b border-slate-100 shrink-0 bg-white">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Kategori/Jenis</label>
+                                <input type="text" list="listJenisPart" id="search_line2_kategori" oninput="filterCardTable('search_line2_kategori', 'search_line2_spek', 'tbody_line2')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Pilih / Ketik Jenis Part...">
+                            </div>
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Spesifikasi Detail</label>
+                                <input type="text" id="search_line2_spek" oninput="filterCardTable('search_line2_kategori', 'search_line2_spek', 'tbody_line2')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Ketik Spesifikasi Part...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 p-5 shrink-0 bg-slate-50/30">
+                        <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Part</p>
+                            <h4 class="text-2xl font-black text-slate-800" id="line2_master_count">0</h4>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Barang Masuk</p>
+                            <h4 class="text-2xl font-black text-emerald-700" id="line2_inbound_count">0</h4>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-purple-600 uppercase tracking-widest mb-1">Barang Keluar</p>
+                            <h4 class="text-2xl font-black text-purple-700" id="line2_outbound_count">0</h4>
+                        </div>
+                        <div class="bg-red-50 border border-red-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-1">Stok Kritis</p>
+                            <h4 class="text-2xl font-black text-red-700" id="line2_critical_count">0</h4>
+                        </div>
+                    </div>
+                    <div class="flex-1 overflow-auto custom-scrollbar border-t border-slate-100 relative bg-white">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase text-[10px] tracking-widest shadow-sm z-10">
+                                <tr>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kategori Part</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kode Material</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Spesifikasi Detail</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center">Min. Stock</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center text-emerald-600 bg-emerald-50/50">Aktual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_line2" class="divide-y divide-slate-100 text-sm">
+                                <tr><td colspan="5" class="px-4 py-8 text-center text-slate-400">Menyinkronkan Server...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
+                <!-- KARTU LINE 3 -->
+                <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col h-[650px] relative transition-transform hover:-translate-y-1 hover:shadow-lg duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-purple-500"></div>
+                    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-slate-800 text-lg tracking-tight">Stock Sparepart LINE 3</h3>
+                                <p class="text-[10px] font-bold text-purple-600 tracking-widest uppercase">Plant Warehouse</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 border-b border-slate-100 shrink-0 bg-white">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Kategori/Jenis</label>
+                                <input type="text" list="listJenisPart" id="search_line3_kategori" oninput="filterCardTable('search_line3_kategori', 'search_line3_spek', 'tbody_line3')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Pilih / Ketik Jenis Part...">
+                            </div>
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Spesifikasi Detail</label>
+                                <input type="text" id="search_line3_spek" oninput="filterCardTable('search_line3_kategori', 'search_line3_spek', 'tbody_line3')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Ketik Spesifikasi Part...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 p-5 shrink-0 bg-slate-50/30">
+                        <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Part</p>
+                            <h4 class="text-2xl font-black text-slate-800" id="line3_master_count">0</h4>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Barang Masuk</p>
+                            <h4 class="text-2xl font-black text-emerald-700" id="line3_inbound_count">0</h4>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-purple-600 uppercase tracking-widest mb-1">Barang Keluar</p>
+                            <h4 class="text-2xl font-black text-purple-700" id="line3_outbound_count">0</h4>
+                        </div>
+                        <div class="bg-red-50 border border-red-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-1">Stok Kritis</p>
+                            <h4 class="text-2xl font-black text-red-700" id="line3_critical_count">0</h4>
+                        </div>
+                    </div>
+                    <div class="flex-1 overflow-auto custom-scrollbar border-t border-slate-100 relative bg-white">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase text-[10px] tracking-widest shadow-sm z-10">
+                                <tr>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kategori Part</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kode Material</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Spesifikasi Detail</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center">Min. Stock</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center text-purple-600 bg-purple-50/50">Aktual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_line3" class="divide-y divide-slate-100 text-sm">
+                                <tr><td colspan="5" class="px-4 py-8 text-center text-slate-400">Menyinkronkan Server...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- KARTU LINE 4 -->
+                <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col h-[650px] relative transition-transform hover:-translate-y-1 hover:shadow-lg duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-orange-500"></div>
+                    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-slate-800 text-lg tracking-tight">Stock Sparepart LINE 4</h3>
+                                <p class="text-[10px] font-bold text-orange-600 tracking-widest uppercase">Plant Warehouse</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 border-b border-slate-100 shrink-0 bg-white">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Kategori/Jenis</label>
+                                <input type="text" list="listJenisPart" id="search_line4_kategori" oninput="filterCardTable('search_line4_kategori', 'search_line4_spek', 'tbody_line4')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Pilih / Ketik Jenis Part...">
+                            </div>
+                            <div class="relative flex-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Cari Spesifikasi Detail</label>
+                                <input type="text" id="search_line4_spek" oninput="filterCardTable('search_line4_kategori', 'search_line4_spek', 'tbody_line4')" class="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 outline-none transition-all focus:bg-white" placeholder="Ketik Spesifikasi Part...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 p-5 shrink-0 bg-slate-50/30">
+                        <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Part</p>
+                            <h4 class="text-2xl font-black text-slate-800" id="line4_master_count">0</h4>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Barang Masuk</p>
+                            <h4 class="text-2xl font-black text-emerald-700" id="line4_inbound_count">0</h4>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-purple-600 uppercase tracking-widest mb-1">Barang Keluar</p>
+                            <h4 class="text-2xl font-black text-purple-700" id="line4_outbound_count">0</h4>
+                        </div>
+                        <div class="bg-red-50 border border-red-100 p-3 rounded-xl shadow-sm flex flex-col justify-center items-center cursor-default">
+                            <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-1">Stok Kritis</p>
+                            <h4 class="text-2xl font-black text-red-700" id="line4_critical_count">0</h4>
+                        </div>
+                    </div>
+                    <div class="flex-1 overflow-auto custom-scrollbar border-t border-slate-100 relative bg-white">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase text-[10px] tracking-widest shadow-sm z-10">
+                                <tr>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kategori Part</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Kode Material</th>
+                                    <th class="px-4 py-3 border-b border-slate-200">Spesifikasi Detail</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center">Min. Stock</th>
+                                    <th class="px-4 py-3 border-b border-slate-200 text-center text-orange-600 bg-orange-50/50">Aktual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_line4" class="divide-y divide-slate-100 text-sm">
+                                <tr><td colspan="5" class="px-4 py-8 text-center text-slate-400">Menyinkronkan Server...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
+
             <div class="h-8 w-full"></div>
         </div>
     </main>
-</div>
 
-<div id="statModal" class="fixed inset-0 premium-backdrop z-[100] hidden items-center justify-center p-4 lg:p-0 opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden transform scale-95 transition-transform duration-300 border border-slate-200 relative" id="statModalContent">
-    </div>
-</div>
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxR8xX4RP52OUtL9L5iSu47xHm-pdyDuwWeBX2y8U6Fb3YiyxA1hbuTmQGRg2J3N673/exec";
 
-<script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqOWK4KNgTemSWAsWwNeJKBwG2lE9pYrJkbmCNa8IjEA4INUGiQ6QvQRxnGUWEsGlI/exec";
-    const masterState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
-    const extraState = { chartData: [], riwayatHarian: [] };
-
-    document.addEventListener("DOMContentLoaded", async function() {
-        const userName = localStorage.getItem('satoria_user_name') || 'Pengguna';
-        const userRole = localStorage.getItem('satoria_user_role') || 'Staff';
-        
-        if (document.getElementById('displayUserName')) document.getElementById('displayUserName').innerText = userName;
-        if (document.getElementById('displayUserRole')) document.getElementById('displayUserRole').innerText = userRole;
-        if (document.getElementById('userInitial')) document.getElementById('userInitial').innerText = userName.charAt(0).toUpperCase();
-
-        startRealtimeClock();
-        setGreeting(userName);
-
-        injectMasterCardDirectly();
-        injectInboundCardDirectly();
-        injectOutboundCardDirectly();
-        injectCriticalCardDirectly();
-
-        await loadCardComponents();
-        loadDashboardData(); 
-    });
-
-    async function fetchSatoriaAPI(payload) {
-        return fetch(SCRIPT_URL, {
-            method: 'POST', redirect: 'follow', 
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify(payload)
-        }).then(res => res.json());
-    }
-
-    // =====================================================================
-    // LOGIKA PENGISIAN DATA DASHBOARD OTOMATIS (BARU)
-    // =====================================================================
-    const textAsIs = (val) => {
-        if (val === null || val === undefined) return "-";
-        return String(val).replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    };
-
-    async function loadDashboardData() {
-        const loader = document.getElementById('mainLoading');
-        if(loader) { loader.classList.remove('hidden'); loader.classList.add('flex'); }
-        
-        try { 
-            const res = await fetchSatoriaAPI({ action: 'get_dashboard_data' }); 
-            if(res.success) {
-                // 1. UPDATE CARD OTOMATIS (Tanpa perlu di-klik)
-                const st = res.stats;
-                if(document.getElementById('trigger_master_count')) document.getElementById('trigger_master_count').innerText = st.master_count || 0;
-                if(document.getElementById('trigger_inbound_count')) document.getElementById('trigger_inbound_count').innerText = st.inbound_count || 0;
-                if(document.getElementById('trigger_outbound_count')) document.getElementById('trigger_outbound_count').innerText = st.outbound_count || 0;
-                if(document.getElementById('trigger_critical_count')) document.getElementById('trigger_critical_count').innerText = st.critical_count || 0;
-
-                // 2. UPDATE TABEL LAKE DATA (Live Ledger Feed)
-                renderRecentActivity(res.recent_activity);
-            }
-        } catch(e) { 
-            console.error("Gagal load data dashboard:", e); 
-        }
-        
-        if(loader) { loader.classList.add('hidden'); loader.classList.remove('flex'); }
-    }
-
-    function renderRecentActivity(data) {
-        const tbody = document.getElementById('recentActivityBody');
-        if(!data || data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-12 text-center text-slate-500 font-medium">Belum ada aktivitas di Ledger Data Lake.</td></tr>`;
-            return;
-        }
-
-        let html = "";
-        data.forEach(row => {
-            const tgl = textAsIs(row[0]);
-            const jenisAkt = String(row[1]).toUpperCase();
-            const plant = textAsIs(row[2]);
-            const pic = textAsIs(row[3]);
-            const jenisPart = textAsIs(row[5]);
-            const spek = textAsIs(row[6]);
-            const mutasiQty = parseFloat(row[9]) || 0;
-            const curStock = textAsIs(row[10]);
-
-            // Desain Badge untuk Jenis Transaksi
-            let typeBadge = "";
-            let mutasiStr = "";
+        document.addEventListener("DOMContentLoaded", async function() {
+            const userName = localStorage.getItem('satoria_user_name') || 'Pengguna';
+            const userRole = localStorage.getItem('satoria_user_role') || 'Staff';
             
-            if(jenisAkt.includes("INBOUND")) {
-                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-emerald-100 text-emerald-700 border border-emerald-200">INBOUND</span>`;
-                mutasiStr = `<span class="text-emerald-600 font-black text-base">+${mutasiQty}</span> <span class="text-[10px] text-slate-400 block mt-0.5">(Sisa: ${curStock})</span>`;
-            } else if(jenisAkt.includes("OUTBOUND")) {
-                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-purple-100 text-purple-700 border border-purple-200">OUTBOUND</span>`;
-                mutasiStr = `<span class="text-purple-600 font-black text-base">-${mutasiQty}</span> <span class="text-[10px] text-slate-400 block mt-0.5">(Sisa: ${curStock})</span>`;
-            } else if(jenisAkt.includes("OPNAME")) {
-                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-blue-100 text-blue-700 border border-blue-200">OPNAME</span>`;
-                mutasiStr = `<span class="text-blue-600 font-black text-base">Adj: ${mutasiQty}</span> <span class="text-[10px] text-slate-400 block mt-0.5">(Sisa: ${curStock})</span>`;
-            } else {
-                typeBadge = `<span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[10px] font-black bg-slate-100 text-slate-700 border border-slate-200">${jenisAkt}</span>`;
-                mutasiStr = `<span class="text-slate-600 font-black text-base">${mutasiQty}</span>`;
-            }
+            if (document.getElementById('displayUserName')) document.getElementById('displayUserName').innerText = userName;
+            if (document.getElementById('displayUserRole')) document.getElementById('displayUserRole').innerText = userRole;
+            if (document.getElementById('userInitial')) document.getElementById('userInitial').innerText = userName.charAt(0).toUpperCase();
 
-            html += `
-            <tr class="hover:bg-slate-50/80 transition-colors border-b border-slate-100">
-                <td class="px-6 py-4 text-xs font-bold text-slate-500">${tgl}</td>
-                <td class="px-6 py-4">${typeBadge}</td>
-                <td class="px-6 py-4">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">${jenisPart}</p>
-                    <p class="text-xs text-blue-600 font-semibold max-w-[250px] truncate" title="${spek}">${spek}</p>
-                </td>
-                <td class="px-6 py-4 text-xs font-black text-slate-800">${plant}</td>
-                <td class="px-6 py-4 text-center">${mutasiStr}</td>
-                <td class="px-6 py-4 text-xs font-bold text-slate-600">${pic}</td>
-            </tr>
-            `;
-        });
-        tbody.innerHTML = html;
-    }
-
-    async function loadCardComponents() {
-        const container = document.getElementById('card-container');
-        if (!container) return; 
-        const components = [];
-        for (const comp of components) {
-            try {
-                const cacheBuster = new Date().getTime(); 
-                const res = await fetch(`../../../components/(dashboard)/dashboard/card/card-${comp}.html?v=${cacheBuster}`);
-                if(res.ok) {
-                    const htmlText = await res.text();
-                    container.insertAdjacentHTML('beforeend', htmlText);
-                }
-            } catch (e) { 
-                console.error(`Error loading card-${comp}.html`, e); 
-            }
-        }
-    }
-
-    // =====================================================================
-    // FUNGSI LAINNYA (TETAP SAMA SEPERTI SEBELUMNYA)
-    // =====================================================================
-    function startRealtimeClock() {
-        const clockEl = document.getElementById('realtimeClock');
-        const dateEl = document.getElementById('realtimeDate');
-        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-
-        setInterval(() => {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            if (clockEl) clockEl.innerText = `${h}:${m}:${s}`;
-            if (dateEl) dateEl.innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-        }, 1000);
-    }
-
-    function setGreeting(name) {
-        const hour = new Date().getHours();
-        let greet = 'Selamat Pagi';
-        if (hour >= 11 && hour < 15) greet = 'Selamat Siang';
-        else if (hour >= 15 && hour < 18) greet = 'Selamat Sore';
-        else if (hour >= 18) greet = 'Selamat Malam';
-        if (document.getElementById('greetingText')) document.getElementById('greetingText').innerText = `${greet}, ${name.split(' ')[0]}!`;
-    }
-
-    function toggleSidebar() {
-        const sb = document.getElementById('sidebar'); 
-        const ov = document.getElementById('sidebarOverlay');
-        if(sb && ov) {
-            if (sb.classList.contains('-translate-x-full')) { 
-                sb.classList.remove('-translate-x-full'); ov.classList.remove('hidden'); 
-            } else { 
-                sb.classList.add('-translate-x-full'); ov.classList.add('hidden'); 
-            }
-        }
-    }
-
-    function logout() { 
-        if(confirm("Keluar dari Satoria Space?")) { 
-            localStorage.clear(); window.location.href = "../../login/index.html"; 
-        } 
-    }
-
-    // Modal Master 
-    async function openModalMaster() {
-        const modal = document.getElementById('modalMasterOverlay');
-        const content = document.getElementById('modalMasterContent');
-        if(!modal || !content) return;
-        
-        if (modal.parentNode.tagName.toLowerCase() !== 'body') document.body.appendChild(modal); 
-        modal.classList.remove('hidden'); modal.classList.add('flex');
-        setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
-
-        const loadingHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-blue-600 font-bold text-xs animate-pulse">Menarik data dari Database...</td></tr>`;
-        ['tbody_partA_kiri', 'tbody_partA_kanan', 'tbody_line1', 'tbody_line2', 'tbody_line3', 'tbody_line4', 'tbody_stock_all'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.innerHTML = loadingHTML;
+            startRealtimeClock();
+            setGreeting(userName);
+            loadDashboardData(); 
         });
 
-        try {
-            const d = await fetchSatoriaAPI({ action: 'get_master_popup' });
+        async function fetchSatoriaAPI(payload) {
+            return fetch(SCRIPT_URL, {
+                method: 'POST', redirect: 'follow', 
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            }).then(res => res.json());
+        }
+
+        async function loadDashboardData() {
+            const loader = document.getElementById('mainLoading');
+            if(loader) { loader.classList.remove('hidden'); loader.classList.add('flex'); }
             
-            if(d.success) {
-                const data = d.data || {};
-                const safeStockAll = Array.isArray(data.partC_StockAll.data) ? data.partC_StockAll.data : [];
+            try { 
+                const res = await fetchSatoriaAPI({ action: 'get_dashboard_data' }); 
+                if(res.success) {
 
-                const elKiri = document.getElementById('tbody_partA_kiri');
-                if(elKiri) {
-                    if(data.partA_Kiri.status === "OK" && data.partA_Kiri.data.length > 0) {
-                        elKiri.innerHTML = data.partA_Kiri.data.map(x => `
-                            <tr class="hover:bg-blue-50/50 border-b border-slate-100">
-                                <td class="px-5 py-3 font-bold text-slate-800">${textAsIs(x.jenis)}</td>
-                                <td class="px-5 py-3 text-right font-black text-blue-600">${textAsIs(x.qty)}</td>
-                            </tr>
-                        `).join('');
-                    } else {
-                        elKiri.innerHTML = `<tr><td colspan="2" class="px-5 py-4 text-xs font-bold text-red-500 bg-red-50/30 whitespace-normal">⚠️ MASALAH:<br>${data.partA_Kiri.msg || 'Data Kosong'}</td></tr>`;
+                    // SAFETY CHECK PENTING! UNTUK MEMASTIKAN WEB MEMBACA SCRIPT VERSI TERBARU
+                    if(!res.data || !res.data.line1) {
+                        alert("⚠️ PERINGATAN SISTEM!\n\nSistem mendeteksi bahwa halaman Dashboard masih menerima data dari Code.gs versi LAMA.\n\nHarap buka Google Apps Script Anda, dan lakukan:\n1. Klik tombol Terapkan (Deploy)\n2. Kelola Penerapan (Manage Deployments)\n3. Klik ikon Pensil (Edit)\n4. Ubah Versi menjadi 'Versi Baru' (New version)\n5. Klik Terapkan (Deploy)");
+                        if(loader) { loader.classList.add('hidden'); loader.classList.remove('flex'); }
+                        return;
                     }
+
+                    const dt = res.data;
+
+                    // Mengisi Datalist Kategori (Untuk Fitur Ketik/Pilih)
+                    const dataListEl = document.getElementById('listJenisPart');
+                    if (dataListEl && res.jenis_part) {
+                        dataListEl.innerHTML = res.jenis_part.map(j => `<option value="${j}">`).join('');
+                    }
+
+                    // Update Data Line 1
+                    document.getElementById('line1_master_count').innerText = dt.line1.master;
+                    document.getElementById('line1_inbound_count').innerText = dt.line1.inbound;
+                    document.getElementById('line1_outbound_count').innerText = dt.line1.outbound;
+                    document.getElementById('line1_critical_count').innerText = dt.line1.critical;
+                    renderLineTable('tbody_line1', dt.line1.table);
+
+                    // Update Data Line 2
+                    document.getElementById('line2_master_count').innerText = dt.line2.master;
+                    document.getElementById('line2_inbound_count').innerText = dt.line2.inbound;
+                    document.getElementById('line2_outbound_count').innerText = dt.line2.outbound;
+                    document.getElementById('line2_critical_count').innerText = dt.line2.critical;
+                    renderLineTable('tbody_line2', dt.line2.table);
+
+                    // Update Data Line 3
+                    document.getElementById('line3_master_count').innerText = dt.line3.master;
+                    document.getElementById('line3_inbound_count').innerText = dt.line3.inbound;
+                    document.getElementById('line3_outbound_count').innerText = dt.line3.outbound;
+                    document.getElementById('line3_critical_count').innerText = dt.line3.critical;
+                    renderLineTable('tbody_line3', dt.line3.table);
+
+                    // Update Data Line 4
+                    document.getElementById('line4_master_count').innerText = dt.line4.master;
+                    document.getElementById('line4_inbound_count').innerText = dt.line4.inbound;
+                    document.getElementById('line4_outbound_count').innerText = dt.line4.outbound;
+                    document.getElementById('line4_critical_count').innerText = dt.line4.critical;
+                    renderLineTable('tbody_line4', dt.line4.table);
                 }
+            } catch(e) { console.error("Gagal load data dashboard:", e); }
+            if(loader) { loader.classList.add('hidden'); loader.classList.remove('flex'); }
+        }
 
-                const elKanan = document.getElementById('tbody_partA_kanan');
-                if(elKanan) {
-                    if(data.partA_Kanan.status === "OK" && data.partA_Kanan.data.length > 0) {
-                        elKanan.innerHTML = data.partA_Kanan.data.map(x => `
-                            <tr class="hover:bg-emerald-50/50 border-b border-slate-100">
-                                <td class="px-5 py-3 font-bold text-slate-800">${textAsIs(x.spesifikasi)}</td>
-                                <td class="px-5 py-3 text-right font-black text-emerald-600">${textAsIs(x.qty)}</td>
-                            </tr>
-                        `).join('');
-                    } else {
-                        elKanan.innerHTML = `<tr><td colspan="2" class="px-5 py-4 text-xs font-bold text-red-500 bg-red-50/30 whitespace-normal">⚠️ MASALAH:<br>${data.partA_Kanan.msg || 'Data Kosong'}</td></tr>`;
-                    }
-                }
+        // FUNGSI RENDER TABEL KHUSUS CARD
+        function renderLineTable(tbodyId, arrayData) {
+            const tbody = document.getElementById(tbodyId);
+            if(!tbody) return;
 
-                const renderLineTable = (tbodyId, lineData) => {
-                    const el = document.getElementById(tbodyId);
-                    if (!el) return; 
-                    
-                    if(lineData.status === "OK" && lineData.data.length > 0) {
-                        el.innerHTML = lineData.data.map(x => `
-                            <tr class="hover:bg-slate-50 border-b border-slate-100">
-                                <td class="px-4 py-2.5 font-bold text-slate-700">${textAsIs(x.kategori)}</td>
-                                <td class="px-4 py-2.5 text-slate-500">${textAsIs(x.spesifikasi)}</td>
-                                <td class="px-4 py-2.5 text-right font-black text-slate-800">${textAsIs(x.qty)}</td>
-                            </tr>
-                        `).join('');
-                    } else {
-                        el.innerHTML = `<tr><td colspan="3" class="px-4 py-6 text-xs font-bold text-red-500 bg-red-50/30 whitespace-normal text-center">⚠️ MASALAH:<br>${lineData.msg || 'Data Kosong'}</td></tr>`;
-                    }
-                };
-
-                renderLineTable('tbody_line1', data.partB_L1);
-                renderLineTable('tbody_line2', data.partB_L2);
-                renderLineTable('tbody_line3', data.partB_L3);
-                renderLineTable('tbody_line4', data.partB_L4);
-
-                const elStock = document.getElementById('tbody_stock_all');
-                if(elStock) {
-                    if(data.partC_StockAll.status === "OK" && safeStockAll.length > 0) {
-                        elStock.innerHTML = safeStockAll.map((x, i) => {
-                            let q = parseFloat(x.qty) || 0;
-                            let m = parseFloat(x.min) || 0;
-                            const actColor = q <= m ? "text-red-600 bg-red-50 px-2 py-1 rounded" : "text-blue-600";
-                            return `
-                                <tr class="hover:bg-slate-50 border-b border-slate-100">
-                                    <td class="px-6 py-4 text-center font-bold text-slate-400">${i + 1}</td>
-                                    <td class="px-6 py-4 font-black text-slate-800">${textAsIs(x.kategori)}</td>
-                                    <td class="px-6 py-4 font-bold text-slate-600">${textAsIs(x.spesifikasi)}</td>
-                                    <td class="px-6 py-4 text-center font-bold text-slate-500">${textAsIs(x.min)}</td>
-                                    <td class="px-6 py-4 text-center font-black ${actColor}">${textAsIs(x.qty)}</td>
-                                    <td class="px-6 py-4 text-center font-black text-purple-600">${textAsIs(x.used)}</td>
-                                </tr>
-                            `;
-                        }).join('');
-                    } else {
-                        elStock.innerHTML = `<tr><td colspan="6" class="px-6 py-12 text-center text-red-500 font-bold bg-red-50/30 whitespace-normal">⚠️ MASALAH:<br>${data.partC_StockAll.msg || 'Data Kosong'}</td></tr>`;
-                    }
-                }
-
-            } else {
-                throw new Error(d.message);
+            if(!arrayData || arrayData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-4 py-6 text-center text-slate-400 text-xs">Belum ada part tersimpan di gudang ini.</td></tr>`;
+                return;
             }
-        } catch(e) {
-            console.error("Error API Master:", e);
-            const errHtml = (colspan) => `<tr><td colspan="${colspan}" class="px-4 py-8 text-center text-red-500 font-bold bg-red-50/50 whitespace-normal">Koneksi Gagal: ${e.message}</td></tr>`;
-            if(document.getElementById('tbody_partA_kiri')) document.getElementById('tbody_partA_kiri').innerHTML = errHtml(2);
-            if(document.getElementById('tbody_partA_kanan')) document.getElementById('tbody_partA_kanan').innerHTML = errHtml(2);
-            ['tbody_line1', 'tbody_line2', 'tbody_line3', 'tbody_line4'].forEach(id => {
-                if(document.getElementById(id)) document.getElementById(id).innerHTML = errHtml(3);
+
+            let html = "";
+            arrayData.forEach(row => {
+                const actColor = row.actual_stock <= row.min_stock ? "text-red-600 bg-red-50 px-2 py-0.5 rounded" : "text-slate-800";
+                const kodeMat = row.kode_material ? row.kode_material : "-";
+
+                html += `
+                    <tr class="hover:bg-slate-50 transition-colors border-b border-slate-100">
+                        <td class="px-4 py-3 font-semibold text-slate-700 text-xs">${row.kategori}</td>
+                        <td class="px-4 py-3 font-mono text-[10px] text-slate-500">${kodeMat}</td>
+                        <td class="px-4 py-3 text-blue-600 font-bold text-xs truncate max-w-[150px]" title="${row.spesifikasi}">${row.spesifikasi}</td>
+                        <td class="px-4 py-3 text-center text-slate-500 text-xs font-semibold">${row.min_stock}</td>
+                        <td class="px-4 py-3 text-center text-xs font-black ${actColor}">${row.actual_stock}</td>
+                    </tr>
+                `;
             });
-            if(document.getElementById('tbody_stock_all')) document.getElementById('tbody_stock_all').innerHTML = errHtml(6);
-        }
-    }
-
-    function closeModalMaster() {
-        const modal = document.getElementById('modalMasterOverlay');
-        const content = document.getElementById('modalMasterContent');
-        if(!modal) return;
-        modal.classList.add('opacity-0'); content.classList.add('scale-95');
-        setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
-    }
-
-    function injectMasterCardDirectly() {
-        const container = document.getElementById('card-container');
-        if (!container) return;
-
-        const masterHTMLTemplate = `
-        <div onclick="openModalMaster()" class="group relative bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between h-[160px] lg:h-[180px] border-t-4 border-t-blue-500">
-            <div class="absolute -right-8 -top-8 w-32 h-32 bg-blue-50 rounded-full opacity-70 group-hover:scale-150 transition-transform duration-700 ease-out z-0"></div>
-            <div class="relative z-10 flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] lg:text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Database Master</p>
-                    <h3 class="text-3xl lg:text-4xl font-black text-slate-800 tracking-tighter" id="trigger_master_count">0</h3>
-                </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                    <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                </div>
-            </div>
-            <p class="relative z-10 text-xs text-slate-400 font-medium group-hover:text-blue-600 transition-colors flex items-center gap-1">
-                Buka Database Plant <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </p>
-        </div>
-
-        <div id="modalMasterOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-2 md:p-6 opacity-0 transition-opacity duration-300" style="background-color: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px);">
-            <div class="bg-slate-50 w-full h-full md:w-[96vw] md:h-[96vh] max-w-[1700px] flex flex-col overflow-hidden rounded-xl md:rounded-[24px] transform scale-95 transition-transform duration-300 shadow-2xl relative" id="modalMasterContent">
-                
-                <div class="px-6 md:px-8 py-5 bg-white border-b border-slate-200 flex justify-between items-center shrink-0 z-10">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 shadow-inner">
-                            <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                        </div>
-                        <div>
-                            <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">Database Sparepart</h2>
-                            <p class="text-sm font-semibold text-slate-500 mt-1.5 flex items-center gap-1.5">
-                                <span class="text-blue-600 font-bold">24/7</span> Sinkronisasi Real-Time Semua Plant.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-3">
-                        <button onclick="window.location.href='../database/index.html'" class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white hover:bg-blue-700 rounded-xl font-bold text-sm transition-colors shadow-sm shadow-blue-200">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            Buka Halaman Penuh
-                        </button>
-                        <button onclick="closeModalMaster()" class="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors bg-white border border-slate-200 shadow-sm" title="Tutup Popup">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 bg-[#f4f7f9] custom-scrollbar">
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 shrink-0">
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[300px] overflow-hidden">
-                            <div class="px-5 py-4 border-b border-slate-100 bg-slate-50 shrink-0 flex items-center justify-between">
-                                <h4 class="font-black text-slate-800 text-sm tracking-tight">Ringkasan Jenis Part</h4>
-                                <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">STOCK_ALL PLANT</span>
-                            </div>
-                            <div class="flex-1 overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase text-[10px] tracking-widest shadow-sm">
-                                        <tr><th class="px-5 py-3">Jenis Part</th><th class="px-5 py-3 text-right">Total Quantity</th></tr>
-                                    </thead>
-                                    <tbody id="tbody_partA_kiri" class="divide-y divide-slate-100 text-slate-700 font-semibold"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[300px] overflow-hidden">
-                            <div class="px-5 py-4 border-b border-slate-100 bg-slate-50 shrink-0 flex items-center justify-between">
-                                <h4 class="font-black text-slate-800 text-sm tracking-tight">Semua Sparepart Tervalidasi</h4>
-                                <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">STOCK_ALL PLANT</span>
-                            </div>
-                            <div class="flex-1 overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase text-[10px] tracking-widest shadow-sm">
-                                        <tr><th class="px-5 py-3">Spesifikasi Detail</th><th class="px-5 py-3 text-right">Quantity Aktual</th></tr>
-                                    </thead>
-                                    <tbody id="tbody_partA_kanan" class="divide-y divide-slate-100 text-slate-700 font-semibold"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 shrink-0">
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[320px] overflow-hidden relative">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-blue-400"></div>
-                            <div class="px-4 py-4 border-b border-slate-100 bg-slate-50 shrink-0"><h4 class="font-black text-slate-800 text-sm">LINE 1</h4></div>
-                            <div class="flex-1 overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-[11px] whitespace-nowrap"><thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase tracking-widest shadow-sm"><tr><th class="px-4 py-2">Kategori</th><th class="px-4 py-2">Spesifikasi</th><th class="px-4 py-2 text-right">Qty</th></tr></thead><tbody id="tbody_line1" class="divide-y divide-slate-100 text-slate-600 font-medium"></tbody></table>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[320px] overflow-hidden relative">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-emerald-400"></div>
-                            <div class="px-4 py-4 border-b border-slate-100 bg-slate-50 shrink-0"><h4 class="font-black text-slate-800 text-sm">LINE 2</h4></div>
-                            <div class="flex-1 overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-[11px] whitespace-nowrap"><thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase tracking-widest shadow-sm"><tr><th class="px-4 py-2">Kategori</th><th class="px-4 py-2">Spesifikasi</th><th class="px-4 py-2 text-right">Qty</th></tr></thead><tbody id="tbody_line2" class="divide-y divide-slate-100 text-slate-600 font-medium"></tbody></table>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[320px] overflow-hidden relative">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-purple-400"></div>
-                            <div class="px-4 py-4 border-b border-slate-100 bg-slate-50 shrink-0"><h4 class="font-black text-slate-800 text-sm">LINE 3</h4></div>
-                            <div class="flex-1 overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-[11px] whitespace-nowrap"><thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase tracking-widest shadow-sm"><tr><th class="px-4 py-2">Kategori</th><th class="px-4 py-2">Spesifikasi</th><th class="px-4 py-2 text-right">Qty</th></tr></thead><tbody id="tbody_line3" class="divide-y divide-slate-100 text-slate-600 font-medium"></tbody></table>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[320px] overflow-hidden relative">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-orange-400"></div>
-                            <div class="px-4 py-4 border-b border-slate-100 bg-slate-50 shrink-0"><h4 class="font-black text-slate-800 text-sm">LINE 4</h4></div>
-                            <div class="flex-1 overflow-y-auto custom-scrollbar">
-                                <table class="w-full text-left text-[11px] whitespace-nowrap"><thead class="sticky top-0 bg-white text-slate-400 font-bold uppercase tracking-widest shadow-sm"><tr><th class="px-4 py-2">Kategori</th><th class="px-4 py-2">Spesifikasi</th><th class="px-4 py-2 text-right">Qty</th></tr></thead><tbody id="tbody_line4" class="divide-y divide-slate-100 text-slate-600 font-medium"></tbody></table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden shrink-0 mt-2">
-                        <div class="px-6 py-5 border-b border-slate-100 bg-slate-50 shrink-0">
-                            <h4 class="font-black text-slate-800 text-base tracking-tight">Tabel Utama: STOCK_ALL PLANT</h4>
-                        </div>
-                        <div class="overflow-x-auto w-full max-h-[400px] custom-scrollbar">
-                            <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap min-w-[1000px]">
-                                <thead class="sticky top-0 bg-white text-slate-500 font-bold uppercase text-[10px] tracking-widest shadow-sm z-10 border-b border-slate-200">
-                                    <tr>
-                                        <th class="px-6 py-4 w-12 text-center">No</th>
-                                        <th class="px-6 py-4">Kategori Part</th>
-                                        <th class="px-6 py-4">Spesifikasi Utama</th>
-                                        <th class="px-6 py-4 text-center">Minimum Stok</th>
-                                        <th class="px-6 py-4 text-center bg-blue-50/30">Aktual Stok</th>
-                                        <th class="px-6 py-4 text-center">Total Digunakan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_stock_all" class="divide-y divide-slate-100"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="h-4 w-full shrink-0"></div>
-                </div>
-            </div>
-        </div>
-        `;
-        
-        container.insertAdjacentHTML('afterbegin', masterHTMLTemplate);
-    }
-
-    // Modal Inbound
-    const inboundState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
-
-    async function openModalInbound() {
-        const modal = document.getElementById('modalInboundOverlay');
-        const content = document.getElementById('modalInboundContent');
-        if(!modal || !content) return;
-        
-        if (modal.parentNode.tagName.toLowerCase() !== 'body') document.body.appendChild(modal); 
-        modal.classList.remove('hidden'); modal.classList.add('flex');
-        setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
-
-        const tbody = document.getElementById('tbody_inbound');
-        if(tbody) tbody.innerHTML = `<tr><td colspan="13" class="px-4 py-12 text-center text-emerald-600 font-bold text-xs animate-pulse">Menarik Riwayat Barang Masuk...</td></tr>`;
-
-        try {
-            const d = await fetchSatoriaAPI({ action: 'get_inbound_popup' });
-            if(d.success) {
-                inboundState.rawData = d.data || [];
-                inboundState.filteredData = [...inboundState.rawData];
-                inboundState.currentPage = 1;
-                
-                renderInboundTable();
-                
-                const searchInp = document.getElementById('searchInputInbound');
-                if(searchInp) searchInp.oninput = filterInbound;
-            } else { throw new Error(d.message); }
-        } catch(e) {
-            console.error("Error API Inbound:", e);
-            if(tbody) tbody.innerHTML = `<tr><td colspan="13" class="px-4 py-12 text-center text-red-500 font-bold bg-red-50/50">Koneksi Gagal: ${e.message}</td></tr>`;
-        }
-    }
-
-    function closeModalInbound() {
-        const modal = document.getElementById('modalInboundOverlay');
-        const content = document.getElementById('modalInboundContent');
-        if(!modal) return;
-        modal.classList.add('opacity-0'); content.classList.add('scale-95');
-        setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
-    }
-
-    function renderInboundTable() {
-        const tbody = document.getElementById('tbody_inbound');
-        if(!tbody) return;
-
-        const startIdx = (inboundState.currentPage - 1) * inboundState.itemsPerPage;
-        const paginatedData = inboundState.filteredData.slice(startIdx, startIdx + inboundState.itemsPerPage);
-
-        if(paginatedData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="13" class="px-6 py-12 text-center text-slate-500 font-bold">Tidak ada riwayat barang masuk.</td></tr>`;
-            updateInboundPagination(); return;
+            tbody.innerHTML = html;
         }
 
-        tbody.innerHTML = paginatedData.map((x, i) => {
-            const statText = String(x.status).toUpperCase();
-            let statClass = "bg-slate-100 text-slate-600 border-slate-200";
-            if(statText.includes("COMPLETED") || statText.includes("SELESAI")) statClass = "bg-emerald-100 text-emerald-700 border-emerald-200/60";
-            else if(statText.includes("REJECT") || statText.includes("TOLAK")) statClass = "bg-red-100 text-red-700 border-red-200/60";
-            else if(statText.includes("PENDING")) statClass = "bg-amber-100 text-amber-700 border-amber-200/60 animate-pulse";
-
-            return `
-                <tr class="hover:bg-emerald-50/40 transition-colors border-b border-slate-100">
-                    <td class="px-5 py-4 text-center font-bold text-slate-400">${startIdx + i + 1}</td>
-                    <td class="px-5 py-4 font-bold text-slate-600 text-[11px]">${textAsIs(x.tgl)}</td>
-                    <td class="px-5 py-4 font-black text-slate-800">${textAsIs(x.plant)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-600">${textAsIs(x.pic)}</td>
-                    <td class="px-5 py-4 text-center font-mono font-bold text-[10px] text-slate-500">${textAsIs(x.rak)}</td>
-                    <td class="px-5 py-4 font-bold text-slate-700 text-xs">${textAsIs(x.jenis)}</td>
-                    <td class="px-5 py-4 font-bold text-blue-600 text-xs">${textAsIs(x.spesifikasi)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-500">${textAsIs(x.satuan)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-500">${textAsIs(x.last_stock)}</td>
-                    <td class="px-5 py-4 text-center font-black text-emerald-600 text-base bg-emerald-50/30">+${textAsIs(x.qty_masuk)}</td>
-                    <td class="px-5 py-4 text-center font-black text-slate-800">${textAsIs(x.current_stock)}</td>
-                    <td class="px-5 py-4 text-center"><span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[9px] uppercase font-black border ${statClass}">${textAsIs(x.status)}</span></td>
-                    <td class="px-5 py-4 text-center text-[10px] text-slate-500 italic max-w-[150px] truncate" title="${textAsIs(x.catatan)}">${textAsIs(x.catatan) || '-'}</td>
-                </tr>
-            `;
-        }).join('');
-        updateInboundPagination();
-    }
-
-    function filterInbound() {
-        const txt = document.getElementById('searchInputInbound').value.toLowerCase();
-        inboundState.filteredData = inboundState.rawData.filter(x => {
-            return String(x.spesifikasi).toLowerCase().includes(txt) || 
-                   String(x.plant).toLowerCase().includes(txt) || 
-                   String(x.pic).toLowerCase().includes(txt);
-        });
-        inboundState.currentPage = 1;
-        renderInboundTable();
-    }
-
-    function updateInboundPagination() {
-        const infoEl = document.getElementById('paginationInfoInbound');
-        const btnPrev = document.getElementById('btnPrevInbound');
-        const btnNext = document.getElementById('btnNextInbound');
-        if(!infoEl || !btnPrev || !btnNext) return;
-
-        const total = inboundState.filteredData.length;
-        const start = total === 0 ? 0 : ((inboundState.currentPage - 1) * inboundState.itemsPerPage) + 1;
-        let end = inboundState.currentPage * inboundState.itemsPerPage;
-        if(end > total) end = total;
-        
-        infoEl.innerText = `Menampilkan ${start} - ${end} dari ${total} baris transaksi`;
-        
-        if(inboundState.currentPage === 1) { btnPrev.disabled=true; btnPrev.classList.add('opacity-40','cursor-not-allowed'); } 
-        else { btnPrev.disabled=false; btnPrev.classList.remove('opacity-40','cursor-not-allowed'); }
-
-        if(end >= total) { btnNext.disabled=true; btnNext.classList.add('opacity-40','cursor-not-allowed'); } 
-        else { btnNext.disabled=false; btnNext.classList.remove('opacity-40','cursor-not-allowed'); }
-        
-        btnPrev.onclick = () => { if(inboundState.currentPage > 1) { inboundState.currentPage--; renderInboundTable(); } };
-        btnNext.onclick = () => { if(end < total) { inboundState.currentPage++; renderInboundTable(); } };
-    }
-
-    function injectInboundCardDirectly() {
-        const container = document.getElementById('card-container');
-        if (!container) return;
-
-        const inboundHTMLTemplate = `
-        <div onclick="openModalInbound()" class="group relative bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between h-[160px] lg:h-[180px] border-t-4 border-t-emerald-500">
-            <div class="absolute -right-8 -top-8 w-32 h-32 bg-emerald-50 rounded-full opacity-70 group-hover:scale-150 transition-transform duration-700 ease-out z-0"></div>
-            <div class="relative z-10 flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] lg:text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Barang Masuk</p>
-                    <h3 class="text-3xl lg:text-4xl font-black text-slate-800 tracking-tighter" id="trigger_inbound_count">0</h3>
-                </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-                    <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
-                </div>
-            </div>
-            <p class="relative z-10 text-xs text-slate-400 font-medium group-hover:text-emerald-600 transition-colors flex items-center gap-1">
-                Buka Detail Riwayat <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </p>
-        </div>
-
-        <div id="modalInboundOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-2 md:p-6 opacity-0 transition-opacity duration-300" style="background-color: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px);">
-            <div class="bg-slate-50 w-full h-full md:w-[96vw] md:h-[96vh] max-w-[1700px] flex flex-col overflow-hidden rounded-xl md:rounded-[24px] transform scale-95 transition-transform duration-300 shadow-2xl relative" id="modalInboundContent">
+        // FUNGSI PENCARIAN DI DALAM CARD (Mencari berdasar 2 Input Sekaligus)
+        function filterCardTable(inputKategoriId, inputSpekId, tableId) {
+            const inputKategori = document.getElementById(inputKategoriId).value.toLowerCase();
+            const inputSpek = document.getElementById(inputSpekId).value.toLowerCase();
+            
+            const tr = document.getElementById(tableId).getElementsByTagName("tr");
+            
+            for (let i = 0; i < tr.length; i++) {
+                if(tr[i].cells.length < 5) continue; 
                 
-                <div class="px-6 md:px-8 py-5 bg-white border-b border-slate-200 flex justify-between items-center shrink-0 z-10">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 shadow-inner">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
-                        </div>
-                        <div>
-                            <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">Riwayat Barang Masuk</h2>
-                            <p class="text-sm font-semibold text-slate-500 mt-1.5 flex items-center gap-1.5">
-                                Seluruh histori log masuk barang ke Warehouse Satoria.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="window.location.href='../inbound/index.html'" class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white rounded-xl font-bold text-sm transition-colors border border-emerald-100 shadow-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            Buka Halaman Penuh
-                        </button>
-                        <button onclick="closeModalInbound()" class="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors bg-white border border-slate-200 shadow-sm" title="Tutup Popup">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                </div>
+                const valKategori = tr[i].cells[0].innerText.toLowerCase();
+                const valSpek = tr[i].cells[2].innerText.toLowerCase();
 
-                <div class="flex-1 overflow-hidden flex flex-col p-4 md:p-8 w-full gap-5 relative bg-[#f4f7f9]">
-                    
-                    <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm shrink-0 flex flex-col xl:flex-row gap-4 justify-between items-center z-10">
-                        <div class="flex flex-col xl:flex-row items-center gap-3 w-full xl:w-auto">
-                            <div class="relative flex-1 w-full xl:min-w-[320px]">
-                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                </div>
-                                <input type="text" id="searchInputInbound" class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all" placeholder="Cari Part Spesifikasi, Plant, atau PIC...">
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-3 w-full xl:w-auto mt-2 xl:mt-0">
-                            <button class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white font-bold rounded-xl text-sm transition-colors border border-emerald-200 hover:border-emerald-600">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Export
-                            </button>
-                            <button onclick="window.print()" class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-800 text-white hover:bg-slate-900 font-bold rounded-xl text-sm transition-colors shadow-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak
-                            </button>
-                        </div>
-                    </div>
+                const matchKat = inputKategori === "" || valKategori.indexOf(inputKategori) > -1;
+                const matchSpek = inputSpek === "" || valSpek.indexOf(inputSpek) > -1;
 
-                    <div class="flex-1 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden relative z-10 shrink-0">
-                        <div class="overflow-x-auto w-full custom-scrollbar">
-                            <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap min-w-[1400px]">
-                                <thead class="bg-slate-100 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200 sticky top-0 z-10">
-                                    <tr>
-                                        <th class="px-5 py-4 text-center">No</th>
-                                        <th class="px-5 py-4">Tgl Aktivitas</th>
-                                        <th class="px-5 py-4">Plant</th>
-                                        <th class="px-5 py-4 text-center">PIC</th>
-                                        <th class="px-5 py-4 text-center">No Rak</th>
-                                        <th class="px-5 py-4">Jenis Part</th>
-                                        <th class="px-5 py-4">Part Spesifikasi</th>
-                                        <th class="px-5 py-4 text-center">Satuan</th>
-                                        <th class="px-5 py-4 text-center">Last Stock</th>
-                                        <th class="px-5 py-4 text-center bg-emerald-50/50 text-emerald-700">Barang Masuk</th>
-                                        <th class="px-5 py-4 text-center">Current Stock</th>
-                                        <th class="px-5 py-4 text-center">Status</th>
-                                        <th class="px-5 py-4 text-center">Catatan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_inbound" class="divide-y divide-slate-100">
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between shrink-0 gap-3">
-                            <span id="paginationInfoInbound" class="text-sm font-semibold text-slate-500">Menampilkan 0 baris transaksi</span>
-                            <div class="flex gap-2">
-                                <button id="btnPrevInbound" disabled class="px-5 py-2.5 border border-slate-300 bg-white text-slate-600 rounded-lg opacity-40 cursor-not-allowed font-bold text-sm transition-colors shadow-sm">Sebelumnya</button>
-                                <button id="btnNextInbound" disabled class="px-5 py-2.5 border border-slate-300 bg-white text-slate-600 rounded-lg opacity-40 cursor-not-allowed font-bold text-sm transition-colors shadow-sm">Selanjutnya</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-6 w-full shrink-0"></div>
-                </div>
-            </div>
-        </div>
-        `;
-        
-        container.insertAdjacentHTML('beforeend', inboundHTMLTemplate);
-    }
-
-    // Modal Outbound
-    const outboundState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
-
-    async function openModalOutbound() {
-        const modal = document.getElementById('modalOutboundOverlay');
-        const content = document.getElementById('modalOutboundContent');
-        if(!modal || !content) return;
-        
-        if (modal.parentNode.tagName.toLowerCase() !== 'body') document.body.appendChild(modal); 
-        modal.classList.remove('hidden'); modal.classList.add('flex');
-        setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
-
-        const tbody = document.getElementById('tbody_outbound');
-        if(tbody) tbody.innerHTML = `<tr><td colspan="13" class="px-4 py-12 text-center text-purple-600 font-bold text-xs animate-pulse">Menarik Riwayat Barang Keluar...</td></tr>`;
-
-        try {
-            const d = await fetchSatoriaAPI({ action: 'get_outbound_popup' });
-            if(d.success) {
-                outboundState.rawData = d.data || [];
-                outboundState.filteredData = [...outboundState.rawData];
-                outboundState.currentPage = 1;
-
-                renderOutboundTable();
-                
-                const searchInp = document.getElementById('searchInputOutbound');
-                if(searchInp) searchInp.oninput = filterOutbound;
-            } else { throw new Error(d.message); }
-        } catch(e) {
-            console.error("Error API Outbound:", e);
-            if(tbody) tbody.innerHTML = `<tr><td colspan="13" class="px-4 py-12 text-center text-red-500 font-bold bg-red-50/50">Koneksi Gagal: ${e.message}</td></tr>`;
-        }
-    }
-
-    function closeModalOutbound() {
-        const modal = document.getElementById('modalOutboundOverlay');
-        const content = document.getElementById('modalOutboundContent');
-        if(!modal) return;
-        modal.classList.add('opacity-0'); content.classList.add('scale-95');
-        setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
-    }
-
-    function renderOutboundTable() {
-        const tbody = document.getElementById('tbody_outbound');
-        if(!tbody) return;
-
-        const startIdx = (outboundState.currentPage - 1) * outboundState.itemsPerPage;
-        const paginatedData = outboundState.filteredData.slice(startIdx, startIdx + outboundState.itemsPerPage);
-
-        if(paginatedData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="13" class="px-6 py-12 text-center text-slate-500 font-bold">Tidak ada riwayat barang keluar.</td></tr>`;
-            updateOutboundPagination(); return;
+                tr[i].style.display = (matchKat && matchSpek) ? "" : "none";
+            }
         }
 
-        tbody.innerHTML = paginatedData.map((x, i) => {
-            const statText = String(x.status).toUpperCase();
-            let statClass = "bg-slate-100 text-slate-600 border-slate-200";
-            if(statText.includes("COMPLETED") || statText.includes("SELESAI") || statText.includes("DISETUJUI")) statClass = "bg-purple-100 text-purple-700 border-purple-200/60";
-            else if(statText.includes("REJECT") || statText.includes("TOLAK") || statText.includes("BATAL")) statClass = "bg-red-100 text-red-700 border-red-200/60";
-            else if(statText.includes("PENDING") || statText.includes("MENUNGGU")) statClass = "bg-amber-100 text-amber-700 border-amber-200/60 animate-pulse";
+        function startRealtimeClock() {
+            const clockEl = document.getElementById('realtimeClock');
+            const dateEl = document.getElementById('realtimeDate');
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
-            return `
-                <tr class="hover:bg-purple-50/40 transition-colors border-b border-slate-100">
-                    <td class="px-5 py-4 text-center font-bold text-slate-400">${startIdx + i + 1}</td>
-                    <td class="px-5 py-4 font-bold text-slate-600 text-[11px]">${textAsIs(x.tgl)}</td>
-                    <td class="px-5 py-4 font-black text-slate-800">${textAsIs(x.plant)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-600">${textAsIs(x.pic)}</td>
-                    <td class="px-5 py-4 text-center font-mono font-bold text-[10px] text-slate-500">${textAsIs(x.rak)}</td>
-                    <td class="px-5 py-4 font-bold text-slate-700 text-xs">${textAsIs(x.jenis)}</td>
-                    <td class="px-5 py-4 font-bold text-purple-600 text-xs">${textAsIs(x.spesifikasi)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-500">${textAsIs(x.satuan)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-500">${textAsIs(x.last_stock)}</td>
-                    <td class="px-5 py-4 text-center font-black text-purple-600 text-base bg-purple-50/30">-${textAsIs(x.qty_keluar)}</td>
-                    <td class="px-5 py-4 text-center font-black text-slate-800">${textAsIs(x.current_stock)}</td>
-                    <td class="px-5 py-4 text-center"><span class="inline-flex items-center px-2 py-1 rounded-[4px] text-[9px] uppercase font-black border ${statClass}">${textAsIs(x.status)}</span></td>
-                    <td class="px-5 py-4 text-center text-[10px] text-slate-500 italic max-w-[150px] truncate" title="${textAsIs(x.catatan)}">${textAsIs(x.catatan) || '-'}</td>
-                </tr>
-            `;
-        }).join('');
-        updateOutboundPagination();
-    }
-
-    function filterOutbound() {
-        const txt = document.getElementById('searchInputOutbound').value.toLowerCase();
-        outboundState.filteredData = outboundState.rawData.filter(x => {
-            return String(x.spesifikasi).toLowerCase().includes(txt) || 
-                   String(x.plant).toLowerCase().includes(txt) || 
-                   String(x.pic).toLowerCase().includes(txt);
-        });
-        outboundState.currentPage = 1;
-        renderOutboundTable();
-    }
-
-    function updateOutboundPagination() {
-        const infoEl = document.getElementById('paginationInfoOutbound');
-        const btnPrev = document.getElementById('btnPrevOutbound');
-        const btnNext = document.getElementById('btnNextOutbound');
-        if(!infoEl || !btnPrev || !btnNext) return;
-
-        const total = outboundState.filteredData.length;
-        const start = total === 0 ? 0 : ((outboundState.currentPage - 1) * outboundState.itemsPerPage) + 1;
-        let end = outboundState.currentPage * outboundState.itemsPerPage;
-        if(end > total) end = total;
-        
-        infoEl.innerText = `Menampilkan ${start} - ${end} dari ${total} baris transaksi`;
-        
-        if(outboundState.currentPage === 1) { btnPrev.disabled=true; btnPrev.classList.add('opacity-40','cursor-not-allowed'); } 
-        else { btnPrev.disabled=false; btnPrev.classList.remove('opacity-40','cursor-not-allowed'); }
-
-        if(end >= total) { btnNext.disabled=true; btnNext.classList.add('opacity-40','cursor-not-allowed'); } 
-        else { btnNext.disabled=false; btnNext.classList.remove('opacity-40','cursor-not-allowed'); }
-        
-        btnPrev.onclick = () => { if(outboundState.currentPage > 1) { outboundState.currentPage--; renderOutboundTable(); } };
-        btnNext.onclick = () => { if(end < total) { outboundState.currentPage++; renderOutboundTable(); } };
-    }
-
-    function injectOutboundCardDirectly() {
-        const container = document.getElementById('card-container');
-        if (!container) return;
-
-        const outboundHTMLTemplate = `
-        <div onclick="openModalOutbound()" class="group relative bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between h-[160px] lg:h-[180px] border-t-4 border-t-purple-500">
-            <div class="absolute -right-8 -top-8 w-32 h-32 bg-purple-50 rounded-full opacity-70 group-hover:scale-150 transition-transform duration-700 ease-out z-0"></div>
-            <div class="relative z-10 flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] lg:text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Barang Keluar</p>
-                    <h3 class="text-3xl lg:text-4xl font-black text-slate-800 tracking-tighter" id="trigger_outbound_count">0</h3>
-                </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shadow-sm group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                    <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path></svg>
-                </div>
-            </div>
-            <p class="relative z-10 text-xs text-slate-400 font-medium group-hover:text-purple-600 transition-colors flex items-center gap-1">
-                Buka Detail Riwayat <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </p>
-        </div>
-
-        <div id="modalOutboundOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-2 md:p-6 opacity-0 transition-opacity duration-300" style="background-color: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px);">
-            <div class="bg-slate-50 w-full h-full md:w-[96vw] md:h-[96vh] max-w-[1700px] flex flex-col overflow-hidden rounded-xl md:rounded-[24px] transform scale-95 transition-transform duration-300 shadow-2xl relative" id="modalOutboundContent">
-                
-                <div class="px-6 md:px-8 py-5 bg-white border-b border-slate-200 flex justify-between items-center shrink-0 z-10">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shrink-0 shadow-inner">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path></svg>
-                        </div>
-                        <div>
-                            <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">Riwayat Barang Keluar</h2>
-                            <p class="text-sm font-semibold text-slate-500 mt-1.5 flex items-center gap-1.5">
-                                Seluruh histori log keluar barang dari Warehouse Satoria.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="window.location.href='../outbound/index.html'" class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white rounded-xl font-bold text-sm transition-colors border border-purple-100 shadow-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            Buka Halaman Penuh
-                        </button>
-                        <button onclick="closeModalOutbound()" class="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors bg-white border border-slate-200 shadow-sm" title="Tutup Popup">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex-1 overflow-hidden flex flex-col p-4 md:p-8 w-full gap-5 relative bg-[#f4f7f9]">
-                    
-                    <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm shrink-0 flex flex-col xl:flex-row gap-4 justify-between items-center z-10">
-                        <div class="flex flex-col xl:flex-row items-center gap-3 w-full xl:w-auto">
-                            <div class="relative flex-1 w-full xl:min-w-[320px]">
-                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                </div>
-                                <input type="text" id="searchInputOutbound" class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="Cari Part Spesifikasi, Plant, atau PIC...">
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-3 w-full xl:w-auto mt-2 xl:mt-0">
-                            <button class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white font-bold rounded-xl text-sm transition-colors border border-purple-200 hover:border-purple-600">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Export
-                            </button>
-                            <button onclick="window.print()" class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-800 text-white hover:bg-slate-900 font-bold rounded-xl text-sm transition-colors shadow-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg> Cetak
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flex-1 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden relative z-10 shrink-0">
-                        <div class="overflow-x-auto w-full custom-scrollbar">
-                            <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap min-w-[1400px]">
-                                <thead class="bg-slate-100 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200 sticky top-0 z-10">
-                                    <tr>
-                                        <th class="px-5 py-4 text-center">No</th>
-                                        <th class="px-5 py-4">Tgl Aktivitas</th>
-                                        <th class="px-5 py-4">Plant</th>
-                                        <th class="px-5 py-4 text-center">PIC</th>
-                                        <th class="px-5 py-4 text-center">No Rak</th>
-                                        <th class="px-5 py-4">Jenis Part</th>
-                                        <th class="px-5 py-4">Part Spesifikasi</th>
-                                        <th class="px-5 py-4 text-center">Satuan</th>
-                                        <th class="px-5 py-4 text-center">Last Stock</th>
-                                        <th class="px-5 py-4 text-center bg-purple-50/50 text-purple-700">Part Keluar</th>
-                                        <th class="px-5 py-4 text-center">Current Stock</th>
-                                        <th class="px-5 py-4 text-center">Status</th>
-                                        <th class="px-5 py-4 text-center">Catatan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_outbound" class="divide-y divide-slate-100">
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between shrink-0 gap-3">
-                            <span id="paginationInfoOutbound" class="text-sm font-semibold text-slate-500">Menampilkan 0 baris transaksi</span>
-                            <div class="flex gap-2">
-                                <button id="btnPrevOutbound" disabled class="px-5 py-2.5 border border-slate-300 bg-white text-slate-600 rounded-lg opacity-40 cursor-not-allowed font-bold text-sm transition-colors shadow-sm">Sebelumnya</button>
-                                <button id="btnNextOutbound" disabled class="px-5 py-2.5 border border-slate-300 bg-white text-slate-600 rounded-lg opacity-40 cursor-not-allowed font-bold text-sm transition-colors shadow-sm">Selanjutnya</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-6 w-full shrink-0"></div>
-                </div>
-            </div>
-        </div>
-        `;
-        
-        container.insertAdjacentHTML('beforeend', outboundHTMLTemplate);
-    }
-
-    // Modal Critical
-    const criticalState = { rawData: [], filteredData: [], currentPage: 1, itemsPerPage: 20 };
-
-    async function openModalCritical() {
-        const modal = document.getElementById('modalCriticalOverlay');
-        const content = document.getElementById('modalCriticalContent');
-        if(!modal || !content) return;
-        
-        if (modal.parentNode.tagName.toLowerCase() !== 'body') document.body.appendChild(modal); 
-        modal.classList.remove('hidden'); modal.classList.add('flex');
-        setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); }, 10);
-
-        const tbody = document.getElementById('tbody_critical');
-        if(tbody) tbody.innerHTML = `<tr><td colspan="9" class="px-4 py-12 text-center text-red-600 font-bold text-xs animate-pulse">Memindai semua gudang Plant...</td></tr>`;
-
-        try {
-            const d = await fetchSatoriaAPI({ action: 'get_critical_popup' });
-            if(d.success) {
-                criticalState.rawData = d.data || [];
-                criticalState.filteredData = [...criticalState.rawData];
-                criticalState.currentPage = 1;
-
-                updateCriticalSummary(criticalState.rawData);
-                renderCriticalTable();
-                
-                const searchInp = document.getElementById('searchInputCritical');
-                const statInp = document.getElementById('filterStatusCritical');
-                if(searchInp) searchInp.oninput = filterCritical;
-                if(statInp) statInp.onchange = filterCritical;
-
-            } else { throw new Error(d.message); }
-        } catch(e) {
-            console.error("Error API Critical:", e);
-            if(tbody) tbody.innerHTML = `<tr><td colspan="9" class="px-4 py-12 text-center text-red-500 font-bold bg-red-50/50">Koneksi Gagal: ${e.message}</td></tr>`;
-        }
-    }
-
-    function closeModalCritical() {
-        const modal = document.getElementById('modalCriticalOverlay');
-        const content = document.getElementById('modalCriticalContent');
-        if(!modal) return;
-        modal.classList.add('opacity-0'); content.classList.add('scale-95');
-        setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
-    }
-
-    function updateCriticalSummary(dataArr) {
-        let kosong = 0, kritis = 0, kekurangan = 0;
-        let plants = new Set();
-
-        dataArr.forEach(x => {
-            if(x.qty === 0) kosong++; else kritis++;
-            kekurangan += (x.min - x.qty);
-            plants.add(x.plant);
-        });
-
-        if(document.getElementById('stat_kosong')) document.getElementById('stat_kosong').innerHTML = `${kosong} <span class="text-xs text-red-400 font-bold">Item</span>`;
-        if(document.getElementById('stat_kritis')) document.getElementById('stat_kritis').innerHTML = `${kritis} <span class="text-xs text-orange-400 font-bold">Item</span>`;
-        if(document.getElementById('stat_plant')) document.getElementById('stat_plant').innerHTML = `${plants.size} <span class="text-xs text-slate-400 font-bold">Plant</span>`;
-        if(document.getElementById('stat_kekurangan')) document.getElementById('stat_kekurangan').innerHTML = `${kekurangan} <span class="text-xs text-emerald-400 font-bold">Pcs Minimum</span>`;
-    }
-
-    function renderCriticalTable() {
-        const tbody = document.getElementById('tbody_critical');
-        if(!tbody) return;
-
-        const startIdx = (criticalState.currentPage - 1) * criticalState.itemsPerPage;
-        const paginatedData = criticalState.filteredData.slice(startIdx, startIdx + criticalState.itemsPerPage);
-
-        if(paginatedData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" class="px-6 py-12 text-center text-emerald-500 font-bold bg-emerald-50/30">Semua Stok Terpantau Aman. Tidak ada data kritis.</td></tr>`;
-            updateCriticalPagination(); return;
+            setInterval(() => {
+                const now = new Date();
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const s = String(now.getSeconds()).padStart(2, '0');
+                if (clockEl) clockEl.innerText = `${h}:${m}:${s}`;
+                if (dateEl) dateEl.innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+            }, 1000);
         }
 
-        tbody.innerHTML = paginatedData.map((x, i) => {
-            const isKosong = x.qty === 0;
-            const bgClass = isKosong ? "bg-red-50/30 hover:bg-red-50 border-l-4 border-l-red-500" : "bg-orange-50/20 hover:bg-orange-50/50 border-l-4 border-l-orange-400";
-            const statBadge = isKosong ? `<span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] uppercase font-black bg-red-100 text-red-700 animate-pulse">🔴 KOSONG</span>` : `<span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] uppercase font-black bg-orange-100 text-orange-700">🟠 KRITIS</span>`;
-            const qtyClass = isKosong ? "bg-red-500 text-white border-red-600 shadow-sm" : "bg-white text-orange-600 border-orange-200";
-            const kekurangan = x.min - x.qty;
+        function setGreeting(name) {
+            const hour = new Date().getHours();
+            let greet = 'Selamat Pagi';
+            if (hour >= 11 && hour < 15) greet = 'Selamat Siang';
+            else if (hour >= 15 && hour < 18) greet = 'Selamat Sore';
+            else if (hour >= 18) greet = 'Selamat Malam';
+            if (document.getElementById('greetingText')) document.getElementById('greetingText').innerText = `${greet}, ${name.split(' ')[0]}!`;
+        }
 
-            return `
-                <tr class="${bgClass} transition-colors border-b border-slate-100">
-                    <td class="px-5 py-4 text-center font-semibold text-slate-500">${startIdx + i + 1}</td>
-                    <td class="px-5 py-4 font-black text-blue-700 text-xs">${textAsIs(x.plant)}</td>
-                    <td class="px-5 py-4 font-bold text-slate-700">${textAsIs(x.kategori)}</td>
-                    <td class="px-5 py-4 font-black text-slate-800 tracking-tight">${textAsIs(x.spesifikasi)}</td>
-                    <td class="px-5 py-4 text-center font-bold text-slate-500">${x.min}</td>
-                    <td class="px-5 py-4 text-center"><span class="inline-flex items-center px-2 py-1 font-black rounded border ${qtyClass}">${x.qty} Pcs</span></td>
-                    <td class="px-5 py-4 text-center font-bold text-purple-600">${x.used}</td>
-                    <td class="px-5 py-4 text-center">${statBadge}</td>
-                    <td class="px-5 py-4 text-center font-black text-red-600 bg-red-50/50">Butuh ${kekurangan} Pcs</td>
-                </tr>
-            `;
-        }).join('');
-        updateCriticalPagination();
-    }
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
+        }
 
-    function filterCritical() {
-        const txt = document.getElementById('searchInputCritical').value.toLowerCase();
-        const stat = document.getElementById('filterStatusCritical').value;
-
-        criticalState.filteredData = criticalState.rawData.filter(x => {
-            const matchTxt = String(x.spesifikasi).toLowerCase().includes(txt) || String(x.kategori).toLowerCase().includes(txt) || String(x.plant).toLowerCase().includes(txt);
-            let matchStat = true;
-            if(stat === "kosong") matchStat = x.qty === 0;
-            if(stat === "kritis") matchStat = x.qty > 0 && x.qty <= x.min;
-            return matchTxt && matchStat;
-        });
-        criticalState.currentPage = 1;
-        renderCriticalTable();
-    }
-
-    function updateCriticalPagination() {
-        const infoEl = document.getElementById('paginationInfoCritical');
-        const btnPrev = document.getElementById('btnPrevCritical');
-        const btnNext = document.getElementById('btnNextCritical');
-        if(!infoEl || !btnPrev || !btnNext) return;
-
-        const total = criticalState.filteredData.length;
-        const start = total === 0 ? 0 : ((criticalState.currentPage - 1) * criticalState.itemsPerPage) + 1;
-        let end = criticalState.currentPage * criticalState.itemsPerPage;
-        if(end > total) end = total;
-        
-        infoEl.innerText = `Menampilkan ${start} - ${end} dari ${total} baris data kritis`;
-        
-        if(criticalState.currentPage === 1) { btnPrev.disabled=true; btnPrev.classList.add('opacity-40','cursor-not-allowed'); } 
-        else { btnPrev.disabled=false; btnPrev.classList.remove('opacity-40','cursor-not-allowed'); }
-
-        if(end >= total) { btnNext.disabled=true; btnNext.classList.add('opacity-40','cursor-not-allowed'); } 
-        else { btnNext.disabled=false; btnNext.classList.remove('opacity-40','cursor-not-allowed'); }
-        
-        btnPrev.onclick = () => { if(criticalState.currentPage > 1) { criticalState.currentPage--; renderCriticalTable(); } };
-        btnNext.onclick = () => { if(end < total) { criticalState.currentPage++; renderCriticalTable(); } };
-    }
-
-    function exportToCSVCritical() {
-        if(criticalState.filteredData.length === 0) return alert("Tidak ada data untuk diekspor.");
-        let csv = "No,Plant,Kategori,Spesifikasi,Min Stok,Aktual Stok,Total Used,Status,Kekurangan Stok\n";
-        criticalState.filteredData.forEach((i, idx) => {
-            let safeSpek = `"${i.spesifikasi.replace(/"/g, '""')}"`;
-            let status = i.qty === 0 ? "KOSONG" : "KRITIS";
-            let butuh = i.min - i.qty;
-            csv += `${idx + 1},${i.plant},${i.kategori},${safeSpek},${i.min},${i.qty},${i.used},${status},${butuh}\n`;
-        });
-        const link = document.createElement("a");
-        link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
-        link.download = `Laporan_Stok_Kritis_${new Date().toLocaleDateString('id-ID')}.csv`;
-        document.body.appendChild(link); link.click(); document.body.removeChild(link);
-    }
-    
-    function injectCriticalCardDirectly() {
-        const container = document.getElementById('card-container');
-        if (!container) return;
-
-        const criticalHTMLTemplate = `
-        <div onclick="openModalCritical()" class="group relative bg-white rounded-2xl p-5 lg:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between h-[160px] lg:h-[180px] border-t-4 border-t-red-500">
-            <div class="absolute -right-8 -top-8 w-32 h-32 bg-red-50 rounded-full opacity-70 group-hover:scale-150 transition-transform duration-700 ease-out z-0"></div>
-            <div class="relative z-10 flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] lg:text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Stok Kritis / Kosong</p>
-                    <h3 class="text-3xl lg:text-4xl font-black text-slate-800 tracking-tighter" id="trigger_critical_count">0</h3>
-                </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shadow-sm group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 animate-none">
-                    <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                </div>
-            </div>
-            <p class="relative z-10 text-xs text-slate-400 font-medium group-hover:text-red-600 transition-colors flex items-center gap-1">
-                Buka Peringatan Stok <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </p>
-        </div>
-
-        <div id="modalCriticalOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-2 md:p-6 opacity-0 transition-opacity duration-300" style="background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px);">
-            <div class="bg-slate-50 w-full h-full md:w-[96vw] md:h-[96vh] max-w-[1500px] flex flex-col overflow-hidden rounded-xl md:rounded-[24px] transform scale-95 transition-transform duration-300 shadow-2xl relative border-2 border-red-500/20" id="modalCriticalContent">
-                
-                <div class="px-6 md:px-8 py-5 bg-white border-b border-red-100 flex justify-between items-center shrink-0 z-10 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-red-50/30 pointer-events-none"></div>
-                    <div class="flex items-center gap-4 relative z-10">
-                        <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 shadow-inner">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        </div>
-                        <div>
-                            <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">Peringatan Stok Kritis & Kosong</h2>
-                            <p class="text-sm font-semibold text-slate-500 mt-1.5">Kalkulasi otomatis dari 5 Plant Satoria (Actual $\\le$ Minimum).</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 relative z-10">
-                        <button onclick="closeModalCritical()" class="p-2.5 text-slate-400 hover:text-red-600 hover:bg-red-100 rounded-full transition-colors bg-white border border-slate-200 shadow-sm" title="Tutup Peringatan">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex-1 overflow-hidden flex flex-col p-4 md:p-8 w-full gap-5 relative bg-[#f4f7f9]">
-                    
-                    <div class="flex flex-wrap gap-4 shrink-0">
-                        <div class="bg-white border border-red-200 px-5 py-3 rounded-xl flex items-center gap-3 shadow-sm min-w-[200px] border-l-4 border-l-red-500">
-                            <span class="text-red-500 bg-red-50 p-2 rounded-lg text-lg">🔴</span>
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Stok Kosong (0 Pcs)</p>
-                                <p class="text-xl font-black text-red-600 leading-none mt-1" id="stat_kosong">0 <span class="text-xs text-red-400 font-bold">Item</span></p>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-orange-200 px-5 py-3 rounded-xl flex items-center gap-3 shadow-sm min-w-[200px] border-l-4 border-l-orange-500">
-                            <span class="text-orange-500 bg-orange-50 p-2 rounded-lg text-lg">🟠</span>
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Stok Kritis</p>
-                                <p class="text-xl font-black text-orange-600 leading-none mt-1" id="stat_kritis">0 <span class="text-xs text-orange-400 font-bold">Item</span></p>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 px-5 py-3 rounded-xl flex items-center gap-3 shadow-sm min-w-[200px]">
-                            <span class="text-slate-500 bg-slate-50 p-2 rounded-lg text-lg">⚠️</span>
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Plant Terdampak</p>
-                                <p class="text-xl font-black text-slate-800 leading-none mt-1" id="stat_plant">0 <span class="text-xs text-slate-400 font-bold">Plant</span></p>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-emerald-200 px-5 py-3 rounded-xl flex items-center gap-3 shadow-sm min-w-[200px] flex-1 border-l-4 border-l-emerald-500">
-                            <span class="text-emerald-500 bg-emerald-50 p-2 rounded-lg text-lg">🛒</span>
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Estimasi Total Kekurangan</p>
-                                <p class="text-xl font-black text-emerald-600 leading-none mt-1" id="stat_kekurangan">0 <span class="text-xs text-emerald-400 font-bold">Pcs Minimum</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm shrink-0 flex flex-col xl:flex-row gap-4 justify-between items-center z-10">
-                        <div class="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto">
-                            <div class="relative flex-1 w-full xl:min-w-[300px]">
-                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                </div>
-                                <input type="text" id="searchInputCritical" class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all" placeholder="Cari Nama Part, Plant, atau Kategori...">
-                            </div>
-                            <select id="filterStatusCritical" class="flex-1 sm:w-44 px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-red-500 cursor-pointer">
-                                <option value="">Semua (Kosong & Kritis)</option>
-                                <option value="kosong">🔴 Stok Kosong</option>
-                                <option value="kritis">🟠 Stok Kritis</option>
-                            </select>
-                        </div>
-                        <div class="flex items-center gap-3 w-full xl:w-auto mt-2 xl:mt-0">
-                            <button onclick="exportToCSVCritical()" class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold rounded-xl text-sm transition-colors border border-slate-300">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Ekspor Data Kritis
-                            </button>
-                            <button onclick="window.print()" class="flex-1 xl:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-800 text-white hover:bg-slate-900 font-bold rounded-xl text-sm transition-colors shadow-sm">
-                                Cetak Laporan
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flex-1 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col overflow-hidden relative z-10 shrink-0">
-                        <div class="overflow-x-auto w-full custom-scrollbar">
-                            <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap min-w-[1000px]">
-                                <thead class="bg-slate-100 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200 sticky top-0 z-10">
-                                    <tr>
-                                        <th class="px-5 py-4 w-12 text-center">No</th>
-                                        <th class="px-5 py-4">Lokasi Plant</th>
-                                        <th class="px-5 py-4">Kategori Part</th>
-                                        <th class="px-5 py-4">Spesifikasi Detail</th>
-                                        <th class="px-5 py-4 text-center">Min. Stok</th>
-                                        <th class="px-5 py-4 text-center">Aktual Stok</th>
-                                        <th class="px-5 py-4 text-center">Total Digunakan</th>
-                                        <th class="px-5 py-4 text-center">Status</th>
-                                        <th class="px-5 py-4 text-center bg-red-50 text-red-700">Kekurangan Stok</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_critical" class="divide-y divide-slate-100">
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between shrink-0 gap-3">
-                            <span id="paginationInfoCritical" class="text-sm font-semibold text-slate-500">Menampilkan 0 baris data kritis</span>
-                            <div class="flex gap-2">
-                                <button id="btnPrevCritical" disabled class="px-5 py-2.5 border border-slate-300 bg-white text-slate-600 rounded-lg opacity-40 cursor-not-allowed font-bold text-sm transition-colors shadow-sm">Sebelumnya</button>
-                                <button id="btnNextCritical" disabled class="px-5 py-2.5 border border-slate-300 bg-white text-slate-600 rounded-lg opacity-40 cursor-not-allowed font-bold text-sm transition-colors shadow-sm">Selanjutnya</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-6 w-full shrink-0"></div>
-                </div>
-            </div>
-        </div>
-        `;
-        container.insertAdjacentHTML('beforeend', criticalHTMLTemplate);
-    }
-
-</script>
+        function logout() { 
+            if(confirm("Keluar dari Satoria Space?")) { 
+                localStorage.clear(); window.location.href = "../../login/index.html"; 
+            } 
+        }
+    </script>
 </body>
 </html>
